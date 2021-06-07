@@ -1,6 +1,6 @@
-import { useState, useContext } from "react"; // useRef
+import { useState, useContext } from "react";
 import { useFormik } from "formik";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
 import { AuthContext } from "../../../context/Auth";
 import app from "../../../firebase";
@@ -53,6 +53,8 @@ const Login = () => {
                 } else {
                     setError("Invalid email address");
                 }
+            } else {
+                setError("Please enter your email and password");
             }
         },
     });
@@ -68,7 +70,6 @@ const Login = () => {
                             id="email"
                             name="email"
                             width="100%"
-                            // ref={email}
                             onChange={formik.handleChange}
                             value={formik.values.email}
                         />
@@ -80,20 +81,32 @@ const Login = () => {
                             id="password"
                             name="password"
                             width="100%"
-                            // ref={password}
                             onChange={formik.handleChange}
                             value={formik.values.password}
                         />
                     </span>
 
-                    {error !== "" ? (
-                        <Text type="error">{error}</Text>
-                    ) : (
-                        <Spacer y={1.5} />
+                    {error !== "" && (
+                        <span
+                            style={{
+                                color: "#b80000",
+                                paddingTop: "15px",
+                                paddingBottom: "0px",
+                                fontSize: "17px",
+                            }}
+                        >
+                            {error}
+                        </span>
                     )}
 
+                    <Link to="/signup">
+                        <Text size={13} type="primary">
+                            Don't have an account? Sign Up
+                        </Text>
+                    </Link>
+
                     <Button auto type="success" onClick={formik.handleSubmit}>
-                        <span style={{ width: "150px" }}>Submit</span>
+                        <span style={{ width: "175px" }}>Submit</span>
                     </Button>
                 </div>
             </Card>

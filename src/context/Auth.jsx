@@ -8,8 +8,8 @@ export const AuthProvider = ({ children }) => {
     const [loadingUser, setLoadingUser] = useState(true);
 
     useEffect(() => {
-        app.auth().onAuthStateChanged(setCurrentUser);
-        setLoadingUser(false)
+        app.auth().onAuthStateChanged((user) => setCurrentUser(user));
+        setLoadingUser(false);
     }, []);
 
     return (
