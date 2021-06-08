@@ -1,13 +1,13 @@
-import { Button } from "@geist-ui/react";
-import app from "../../../firebase";
+// import { useContext } from "react";
+// import { ThemeContext } from "../../../context/Theme";
+// import { Button } from "@geist-ui/react";
+// import app from "../../../firebase";
+import Header from "../../Header/Header";
 
 const Home = () => {
     return (
-        <div style={{padding:'20px'}}>
-            <h2>Home Page</h2>
-            <Button type="dark" onClick={() => app.auth().signOut()}>
-                Signout
-            </Button>
+        <div style={{ padding: "20px" }}>
+            <Header />
         </div>
     );
 };

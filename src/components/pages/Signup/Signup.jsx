@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
+import { ThemeContext } from "../../../context/Theme";
 import { AuthContext } from "../../../context/Auth";
 import app from "../../../firebase";
 import "./Signup.css";
@@ -9,6 +10,7 @@ import "./Signup.css";
 const Signup = () => {
     const history = useHistory();
     const { currentUser } = useContext(AuthContext);
+    const { getTheme } = useContext(ThemeContext);
     currentUser && history.push("/");
 
     const [error, setError] = useState("");
@@ -19,7 +21,6 @@ const Signup = () => {
         },
 
         onSubmit: async (values) => {
-            console.log(values.email, values.password);
             if (values.email && values.password) {
                 if (values.email.match(/^\S+@\S+\.\S+$/)) {
                     try {
@@ -65,7 +66,9 @@ const Signup = () => {
         <div className="Signup-Page">
             <Card width="400px">
                 <form className="Signup-Form">
-                    <h3>Sign Up</h3>
+                    <Text size={30} b>
+                        Sign Up
+                    </Text>
                     <span className="input-wrapper">
                         <label htmlFor="email">Email</label>
                         <Input
@@ -88,29 +91,57 @@ const Signup = () => {
                         />
                     </span>
 
-                    {error !== "" && (
-                        <span
-                            style={{
-                                color: "#b80000",
-                                paddingTop: "15px",
-                                paddingBottom: "0px",
-                                fontSize: "17px",
-                            }}
-                        >
-                            {error}
-                        </span>
-                    )}
-                    <Link to="/login">
-                        <Text size={13} type="primary">
-                            Already have an account? Login
-                        </Text>
-                    </Link>
+                    <span
+                        style={{
+                            color: "#b80000",
+                            paddingTop: "15px",
+                            paddingBottom: "15px",
+                            fontSize: "17px",
+                        }}
+                    >
+                        {error}
+                    </span>
 
                     <Button auto type="success" onClick={formik.handleSubmit}>
                         <span style={{ width: "175px" }}>Submit</span>
                     </Button>
                 </form>
             </Card>
+            <span
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    height: "50px",
+                    margin: "10px",
+                    marginTop: "20px",
+                    color: "#fff",
+                }}
+            >
+                <Link to="/login">
+                    <Text
+                        small
+                        size={14}
+                        style={{
+                            color: getTheme() === "dark" ? "#fff" : "#000",
+                        }}
+                    >
+                        Already have an account? Login
+                    </Text>
+                </Link>
+                <Link to="/reset">
+                    <Text
+                        small
+                        size={14}
+                        style={{
+                            color: getTheme() === "dark" ? "#fff" : "#000",
+                        }}
+                    >
+                        Forgot Password?
+                    </Text>
+                </Link>
+            </span>
         </div>
     );
 };

@@ -1,0 +1,12 @@
+.Header-Wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Header-Container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80vw;
+}
