@@ -1,0 +1,26 @@
+.Title-Input {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+    outline: none;
+    overflow-wrap: break-word;
+    font-size: 20px;
+}
+
+.Title-Input:empty::before {
+    content: "Title";
+    color: #555;
+}
+
+.Note-Input {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    outline: none;
+}
+
+.Note-Input:empty::before {
+    content: "Add note";
+    color: #555;
+    background-color: transparent;
+}

@@ -14,13 +14,8 @@ export const ThemeProvider = ({ children }) => {
             : "light";
     };
 
-    const getTheme = () => {
-        return currentTheme === "system"
-            ? getSystemTheme()
-            : currentTheme === "dark"
-            ? "dark"
-            : "light";
-    };
+    const getTheme = () =>
+        currentTheme === "system" ? getSystemTheme() : currentTheme;
 
     const updateTheme = (value) => {
         setCurrentTheme(value);

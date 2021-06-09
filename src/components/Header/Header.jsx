@@ -10,13 +10,13 @@ const Header = () => {
     const { currentTheme, updateTheme } = useContext(ThemeContext);
 
     const content = () => (
-        <div>
-            <Popover.Item>
+        <div style={{}}>
+            <Popover.Item style={{ padding: "5px 15px" }}>
                 <Select
-                    pure
+                    // pure
                     value={currentTheme}
                     size="mini"
-                    style={{ height: "40px" }}
+                    style={{ height: "35px" }}
                     onChange={(value) => updateTheme(value)}
                 >
                     <Select.Option size="mini" value="system">
@@ -39,7 +39,7 @@ const Header = () => {
                     </Select.Option>
                 </Select>
             </Popover.Item>
-            <Popover.Item style={{}} onClick={() => app.auth().signOut()}>
+            <Popover.Item onClick={() => app.auth().signOut()}>
                 <Text>Sign Out</Text>
             </Popover.Item>
         </div>
@@ -49,7 +49,7 @@ const Header = () => {
         <div className="Header-Wrapper">
             <div className="Header-Container">
                 <Text h2>Notes</Text>
-                <Popover content={content}>
+                <Popover content={content} placement="bottomEnd">
                     <Button auto icon={<Settings />} />
                 </Popover>
             </div>
