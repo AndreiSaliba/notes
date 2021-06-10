@@ -1,33 +1,47 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, useClickAway } from "@geist-ui/react";
 import "./AddNote.css";
 
 const AddNote = () => {
     const AddContainer = useRef();
-    const [focused, setFocused] = useState(false);
+    const [opened, setOpened] = useState(false);
     const [title, setTitle] = useState();
     const [note, setNote] = useState();
-    const [notes, setNotes] = useState(localStorage.getItem("notes") ?? []);
+    const [notes, setNotes] = useState(
+        JSON.parse(localStorage.getItem("notes")) ?? []
+    );
 
     useClickAway(AddContainer, () => {
-        setFocused(false);
-        setNotes([
-            ...notes,
-            {
-                title,
-                note,
-            },
-        ]);
-        localStorage.setItem("notes", notes);
+        setOpened(false);
+        (title || note) &&
+            setNotes([
+                {
+                    id: notes.length > 0 ? notes[0].id + 1 : 1,
+                    title,
+                    note,
+                },
+                ...notes,
+            ]);
+        setTitle("");
+        setNote("");
     });
 
+    useEffect(() => {
+        localStorage.setItem("notes", JSON.stringify(notes));
+    }, [notes]);
+
     return (
-        <div ref={AddContainer} onFocus={() => setFocused(true)}>
+        <div
+            ref={AddContainer}
+            onFocus={() => {
+                setOpened(true);
+            }}
+        >
             <Card
                 style={{ width: "550px", maxWidth: "85vw", marginTop: "30px" }}
             >
                 <Card.Content style={{ padding: "10px 15px" }}>
-                    {focused ? (
+                    {opened ? (
                         <>
                             <div
                                 className="Title-Input"

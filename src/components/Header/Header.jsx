@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Button, Text, Popover, Select } from "@geist-ui/react";
-// import { BrowserRouter as Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 import { Settings, Display, Moon, Sun } from "@geist-ui/react-icons";
 import { ThemeContext } from "../../context/Theme";
 import app from "../../firebase";
@@ -48,7 +48,11 @@ const Header = () => {
     return (
         <div className="Header-Wrapper">
             <div className="Header-Container">
-                <Text h2>Notes</Text>
+                <Link to="/">
+                    <Text h2 style={{ userSelect: "none" }}>
+                        Notes
+                    </Text>
+                </Link>
                 <Popover content={content} placement="bottomEnd">
                     <Button auto icon={<Settings />} />
                 </Popover>

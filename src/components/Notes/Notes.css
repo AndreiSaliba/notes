@@ -1,0 +1,17 @@
+.Notes-Container {
+    margin-top: 40px;
+    width: 85vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.Card-Text {
+    width: 100%;
+    overflow-wrap: break-word;
+    margin-bottom: 10px;
+}
+
+.Title {
+    font-size: 20px;
+}
