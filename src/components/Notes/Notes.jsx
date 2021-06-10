@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Card } from "@geist-ui/react";
+import { NotesContext } from "../../context/Notes";
 import "./Notes.css";
 
 const Notes = () => {
-    const [notes] = useState(JSON.parse(localStorage.getItem("notes")) ?? []);
+    const { notes } = useContext(NotesContext);
 
     return (
         <div className="Notes-Container">
             {notes.map((element) => {
                 const { title, note } = element;
                 return (
-                    <Card style={{ maxWidth: "200px", margin: "5px" }}>
+                    <Card
+                        style={{
+                            alignSelf: "flex-start",
+                        }}
+                    >
                         <Card.Content style={{ padding: "10px" }}>
                             <div className="Card-Text Title">{title}</div>
                             <div className="Card-Text">{note}</div>

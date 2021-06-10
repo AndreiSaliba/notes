@@ -89,16 +89,14 @@ const ResetPassword = () => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     flexDirection: "column",
-                    height: "50px",
+                    height: "45px",
                     margin: "10px",
-                    marginTop: "20px",
-                    color: "#fff",
                 }}
             >
                 <Link to="/login">
                     <Text
                         small
-                        size={14}
+                        size={13}
                         style={{
                             color: getTheme() === "dark" ? "#fff" : "#000",
                         }}

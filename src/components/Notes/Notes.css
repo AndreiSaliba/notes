@@ -1,9 +1,17 @@
+.Notes-Wrapper {
+    max-width: 85vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .Notes-Container {
     margin-top: 40px;
-    width: 85vw;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    max-width: 85vw;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 250px));
+    grid-template-rows: masonry;
 }
 
 .Card-Text {
@@ -14,4 +22,15 @@
 
 .Title {
     font-size: 20px;
+}
+
+@media only screen and (max-width: 615px) {
+    .Notes-Container {
+        margin-top: 40px;
+        max-width: 85vw;
+        display: grid;
+        gap: 10px 20px;
+        grid-template-columns: repeat(auto-fill, minmax(175px, 85vw));
+        grid-template-rows: masonry;
+    }
 }

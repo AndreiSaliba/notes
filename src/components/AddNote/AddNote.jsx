@@ -1,15 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import { NotesContext } from "../../context/Notes";
 import { Card, useClickAway } from "@geist-ui/react";
 import "./AddNote.css";
 
 const AddNote = () => {
+    const { notes, setNotes } = useContext(NotesContext);
     const AddContainer = useRef();
     const [opened, setOpened] = useState(false);
     const [title, setTitle] = useState();
     const [note, setNote] = useState();
-    const [notes, setNotes] = useState(
-        JSON.parse(localStorage.getItem("notes")) ?? []
-    );
 
     useClickAway(AddContainer, () => {
         setOpened(false);
