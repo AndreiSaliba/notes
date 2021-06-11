@@ -1,3 +1,9 @@
+.Add-Content {
+    display: flex;
+    flex-direction: column;
+    outline: none;
+}
+
 .Title-Input {
     width: 100%;
     max-width: 100%;
@@ -5,6 +11,7 @@
     outline: none;
     overflow-wrap: break-word;
     font-size: 20px;
+    white-space: pre-wrap;
 }
 
 .Title-Input:empty::before {
@@ -17,6 +24,7 @@
     max-width: 100%;
     overflow-wrap: break-word;
     outline: none;
+    white-space: pre-wrap;
 }
 
 .Note-Input:empty::before {

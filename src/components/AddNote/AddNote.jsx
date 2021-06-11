@@ -1,16 +1,21 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx, css } from "@emotion/react";
 import { useState, useRef, useEffect, useContext } from "react";
 import { NotesContext } from "../../context/Notes";
+import { ThemeContext } from "../../context/Theme";
 import { Card, useClickAway } from "@geist-ui/react";
 import "./AddNote.css";
 
 const AddNote = () => {
     const { notes, setNotes } = useContext(NotesContext);
+    const { getTheme } = useContext(ThemeContext);
     const AddContainer = useRef();
     const [opened, setOpened] = useState(false);
     const [title, setTitle] = useState();
     const [note, setNote] = useState();
 
-    useClickAway(AddContainer, () => {
+    const saveNote = () => {
         setOpened(false);
         (title || note) &&
             setNotes([
@@ -23,7 +28,9 @@ const AddNote = () => {
             ]);
         setTitle("");
         setNote("");
-    });
+    };
+
+    useClickAway(AddContainer, () => saveNote());
 
     useEffect(() => {
         localStorage.setItem("notes", JSON.stringify(notes));
@@ -41,23 +48,44 @@ const AddNote = () => {
             >
                 <Card.Content style={{ padding: "10px 15px" }}>
                     {opened ? (
-                        <>
+                        <div className="Add-Content">
                             <div
                                 className="Title-Input"
                                 contentEditable="true"
                                 onInput={(e) => {
-                                    setTitle(e.currentTarget.textContent);
+                                    setTitle(e.currentTarget.innerText);
                                 }}
-                            ></div>
+                            ></div> 
 
                             <div
                                 className="Note-Input"
                                 contentEditable="true"
                                 onInput={(e) => {
-                                    setNote(e.currentTarget.textContent);
+                                    setNote(e.currentTarget.innerText);
                                 }}
                             ></div>
-                        </>
+                            <div
+                                css={css`
+                                    align-self: flex-end;
+                                    width: fit-content;
+                                    border-radius: 3px;
+                                    padding: 3px 10px;
+                                    margin-top: 15px;
+                                    font-size: 14px;
+                                    user-select: none;
+                                    cursor: pointer;
+                                    &:hover {
+                                        background-color: ${getTheme() ===
+                                        "dark"
+                                            ? "#111"
+                                            : "#eee"};
+                                    }
+                                `}
+                                onClick={() => saveNote()}
+                            >
+                                Close
+                            </div>
+                        </div>
                     ) : (
                         <div
                             className="Note-Input"

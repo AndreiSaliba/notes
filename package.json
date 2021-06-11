@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@emotion/react": "^11.4.0",
         "@geist-ui/react": "^2.1.5",
         "@geist-ui/react-icons": "^1.0.1",
         "@testing-library/jest-dom": "^5.13.0",
@@ -12,6 +13,7 @@
         "formik": "^2.2.9",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "react-icons": "^4.2.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.3",
         "web-vitals": "^1.1.2"
