@@ -15,7 +15,7 @@
 }
 
 .Title-Input:empty::before {
-    content: "Title";
+    content: attr(placeholder);
     color: #555;
 }
 
@@ -28,7 +28,6 @@
 }
 
 .Note-Input:empty::before {
-    content: "Add note";
+    content: attr(placeholder);
     color: #555;
-    background-color: transparent;
 }

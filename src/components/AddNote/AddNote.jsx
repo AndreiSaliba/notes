@@ -17,12 +17,16 @@ const AddNote = () => {
 
     const saveNote = () => {
         setOpened(false);
-        (title || note) &&
+        (title != "" || note != "") &&
             setNotes([
                 {
                     id: notes.length > 0 ? notes[0].id + 1 : 1,
                     title,
                     note,
+                    pinned: false,
+                    color: "",
+                    archived: false,
+                    deleted: false,
                 },
                 ...notes,
             ]);
@@ -31,10 +35,6 @@ const AddNote = () => {
     };
 
     useClickAway(AddContainer, () => saveNote());
-
-    useEffect(() => {
-        localStorage.setItem("notes", JSON.stringify(notes));
-    }, [notes]);
 
     return (
         <div
@@ -52,14 +52,16 @@ const AddNote = () => {
                             <div
                                 className="Title-Input"
                                 contentEditable="true"
+                                placeholder="Title"
                                 onInput={(e) => {
                                     setTitle(e.currentTarget.innerText);
                                 }}
-                            ></div> 
+                            ></div>
 
                             <div
                                 className="Note-Input"
                                 contentEditable="true"
+                                placeholder="Add note"
                                 onInput={(e) => {
                                     setNote(e.currentTarget.innerText);
                                 }}
