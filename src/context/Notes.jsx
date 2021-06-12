@@ -33,13 +33,28 @@ export const NotesProvider = ({ children }) => {
         setNotes(notes.filter((item) => item.id !== id));
     };
 
+    const changeColor = (id, color) => {
+        let tempNotes = [...notes];
+        tempNotes[
+            tempNotes.indexOf(tempNotes.find((item) => item.id === id))
+        ].color = color;
+        setNotes([...tempNotes]);
+    };
+
     useEffect(() => {
         localStorage.setItem("notes", JSON.stringify(notes));
     }, [notes]);
 
     return (
         <NotesContext.Provider
-            value={{ notes, setNotes, archiveNote, deleteNote, pinNote }}
+            value={{
+                notes,
+                setNotes,
+                archiveNote,
+                deleteNote,
+                pinNote,
+                changeColor,
+            }}
         >
             {children}
         </NotesContext.Provider>
