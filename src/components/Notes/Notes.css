@@ -6,7 +6,7 @@
 }
 
 .Notes-Container {
-    margin-top: 40px;
+    /* margin-top: 40px; */
     max-width: 85vw;
     display: grid;
     gap: 20px;
@@ -27,7 +27,6 @@
 
 @media only screen and (max-width: 615px) {
     .Notes-Container {
-        margin-top: 40px;
         max-width: 85vw;
         display: grid;
         gap: 10px 20px;

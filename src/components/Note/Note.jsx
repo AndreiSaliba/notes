@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Card, Popover } from "@geist-ui/react";
 import { IoTrashOutline, IoArchiveOutline, IoArchive } from "react-icons/io5";
 import { AiFillPushpin, AiOutlinePushpin } from "react-icons/ai";
