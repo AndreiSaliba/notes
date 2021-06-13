@@ -9,7 +9,7 @@ const Notes = () => {
 
     return (
         <div>
-            <Spacer y={1.5} />
+            <Spacer y={0.5} />
             {notes.filter((item) => !!item.pinned).length > 0 && (
                 <div>
                     <Text size={16}>Pinned</Text>
@@ -17,7 +17,7 @@ const Notes = () => {
                         {notes
                             .filter((item) => !!item.pinned)
                             .map((element) => {
-                                return <Note item={element} />;
+                                return <Note key={element.id} item={element} />;
                             })}
                     </div>
                 </div>
@@ -25,6 +25,7 @@ const Notes = () => {
 
             {notes.filter((item) => !item.pinned).length > 0 && (
                 <div>
+                    <Spacer y={1} />
                     {notes.filter((item) => !!item.pinned).length > 0 && (
                         <Text>Other</Text>
                     )}
@@ -32,7 +33,7 @@ const Notes = () => {
                         {notes
                             .filter((item) => !item.pinned)
                             .map((element) => {
-                                return <Note item={element} />;
+                                return <Note key={element.id} item={element} />;
                             })}
                     </div>
                 </div>

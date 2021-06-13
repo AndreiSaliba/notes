@@ -21,6 +21,7 @@ const ColorPicker = ({ id }) => {
                 display: flex;
                 flex-direction: column;
                 margin: 0px 7px;
+                z-index: 50;
             `}
         >
             <div
@@ -38,7 +39,7 @@ const ColorPicker = ({ id }) => {
                                 : "#000"};
                         `,
                     ]}
-                    onClick={() => changeColor(id, "dark")}
+                    onClick={() => changeColor(id, "dark", "dark")}
                 ></div>
                 <div
                     css={[
@@ -47,7 +48,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #0070f3;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "success")}
+                    onClick={() => changeColor(id, "success", "#0070f3")}
                 ></div>
                 <div
                     css={[
@@ -56,7 +57,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #ee0000;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "error")}
+                    onClick={() => changeColor(id, "error", "#ee0000")}
                 ></div>
                 <div
                     css={[
@@ -65,7 +66,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #f5a623;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "warning")}
+                    onClick={() => changeColor(id, "warning", "#f5a623")}
                 ></div>
             </div>
             <div
@@ -86,7 +87,7 @@ const ColorPicker = ({ id }) => {
                             -webkit-box-sizing: border-box;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "default")}
+                    onClick={() => changeColor(id, "default", "")}
                 ></div>
                 <div
                     css={[
@@ -95,7 +96,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #50e3c2;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "cyan")}
+                    onClick={() => changeColor(id, "cyan", "#50e3c2")}
                 ></div>
                 <div
                     css={[
@@ -104,7 +105,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #ff0080;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "alert")}
+                    onClick={() => changeColor(id, "alert", "#ff0080")}
                 ></div>
                 <div
                     css={[
@@ -113,7 +114,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #7928ca;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "violet")}
+                    onClick={() => changeColor(id, "violet", "#7928ca")}
                 ></div>
             </div>
         </div>

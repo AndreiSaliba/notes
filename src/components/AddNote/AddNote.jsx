@@ -12,23 +12,8 @@ const AddNote = () => {
     const { getTheme } = useContext(ThemeContext);
     const AddContainer = useRef();
     const [opened, setOpened] = useState(false);
-    const [title, setTitle] = useState();
-    const [note, setNote] = useState();
-    // //Controls State
-    // const [pinned, setPinned] = useState(false);
-
-    // const hoverButton = css`
-    //     width: 30px;
-    //     height: 30px;
-    //     border-radius: 50%;
-    //     text-align: center;
-    //     vertical-align: middle;
-    //     padding: 6px;
-    //     margin-right: 5px;
-    //     &:hover {
-    //         background: ${getTheme() === "dark" ? "#111" : "#eee"};
-    //     }
-    // `;
+    const [title, setTitle] = useState("");
+    const [note, setNote] = useState("");
 
     const saveNote = () => {
         setOpened(false);
@@ -40,6 +25,7 @@ const AddNote = () => {
                     note,
                     pinned: false,
                     color: "",
+                    colorHex: "",
                     archived: false,
                     deleted: false,
                 },
@@ -86,8 +72,9 @@ const AddNote = () => {
                                 css={css`
                                     align-self: flex-end;
                                     width: fit-content;
-                                    border-radius: 3px;
+                                    margin-top: 15px;
                                     padding: 3px 10px;
+                                    border-radius: 3px;
                                     font-size: 14px;
                                     user-select: none;
                                     cursor: pointer;

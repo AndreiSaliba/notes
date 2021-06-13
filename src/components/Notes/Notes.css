@@ -16,13 +16,23 @@
 
 .Card-Text {
     width: 100%;
-    overflow-wrap: break-word;
     margin-bottom: 10px;
+    overflow-wrap: break-word;
     white-space: pre-wrap;
+    outline: none;
+}
+
+.Home {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 17;
+    -webkit-box-orient: vertical;
 }
 
 .Title {
     font-size: 20px;
+    -webkit-line-clamp: 5;
 }
 
 @media only screen and (max-width: 615px) {
