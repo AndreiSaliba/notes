@@ -58,11 +58,10 @@ const Note = ({ item }) => {
     return (
         <div>
             <Card
-                style={{
-                    alignSelf: "flex-start",
-                }}
-                type={color === "" ? "default" : color}
+                style={{ backgroundColor: color }}
                 css={css`
+                    alignself: "flex-start";
+
                     .Controls-Container {
                         visibility: hidden;
                     }
@@ -138,22 +137,8 @@ const Note = ({ item }) => {
                         margin: -22px !important;
                         margin-bottom: -22px !important;
                         padding: 10px !important;
-                        background-color: ${colorHex === "dark"
-                            ? getTheme() === "dark"
-                                ? "#fff"
-                                : "#000"
-                            : colorHex};
-                        color: ${color === "cyan"
-                            ? "#000"
-                            : color === "violet" || color === "alert"
-                            ? "#fff"
-                            : colorHex === ""
-                            ? getTheme() === "dark"
-                                ? "#fff"
-                                : "#000"
-                            : getTheme() === "dark"
-                            ? "#000"
-                            : "#fff"};
+                        background-color: ${color};
+                        color: ${getTheme() === "dark" ? "#fff" : "#000"};
                     `}
                 >
                     <div
@@ -174,10 +159,10 @@ const Note = ({ item }) => {
                         className="Card-Text"
                         contentEditable
                         suppressContentEditableWarning
+                        placeholder="Add note"
                         css={css`
                             outline: none;
                         `}
-                        placeholder="Add note"
                         onLoad={(e) => {
                             setModalNote(e.currentTarget.innerText);
                         }}

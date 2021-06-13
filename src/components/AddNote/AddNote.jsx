@@ -94,6 +94,7 @@ const AddNote = () => {
                         <div
                             className="Note-Input"
                             contentEditable="true"
+                            placeholder="Add note"
                         ></div>
                     )}
                 </Card.Content>

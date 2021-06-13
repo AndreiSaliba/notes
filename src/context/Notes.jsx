@@ -33,14 +33,11 @@ export const NotesProvider = ({ children }) => {
         setNotes(notes.filter((item) => item.id !== id));
     };
 
-    const changeColor = (id, color, hex) => {
+    const changeColor = (id, color) => {
         let tempNotes = [...notes];
         tempNotes[
             tempNotes.indexOf(tempNotes.find((item) => item.id === id))
         ].color = color;
-        tempNotes[
-            tempNotes.indexOf(tempNotes.find((item) => item.id === id))
-        ].colorHex = hex;
         setNotes([...tempNotes]);
     };
 

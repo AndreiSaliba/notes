@@ -8,6 +8,19 @@ import { NotesContext } from "../../context/Notes";
 const ColorPicker = ({ id }) => {
     const { getTheme } = useContext(ThemeContext);
     const { changeColor } = useContext(NotesContext);
+
+    const container = css`
+        display: flex;
+        flex-direction: column;
+        margin: 0px 7px;
+        z-index: 50;
+    `;
+
+    const row = css`
+        display: flex;
+        flex-direction: row;
+    `;
+
     const colorButton = css`
         width: 20px;
         height: 20px;
@@ -16,67 +29,59 @@ const ColorPicker = ({ id }) => {
     `;
 
     return (
-        <div
-            css={css`
-                display: flex;
-                flex-direction: column;
-                margin: 0px 7px;
-                z-index: 50;
-            `}
-        >
-            <div
-                css={css`
-                    display: flex;
-                    flex-direction: row;
-                `}
-            >
+        <div css={container}>
+            <div css={row}>
                 <div
+                    // Grey
                     css={[
                         colorButton,
                         css`
-                            background-color: ${getTheme() === "dark"
-                                ? "#fff"
-                                : "#000"};
+                            background-color: #55555590;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "dark", "dark")}
+                    onClick={() => changeColor(id, "#55555590")}
                 ></div>
                 <div
+                    // Blue
                     css={[
                         colorButton,
                         css`
-                            background-color: #0070f3;
+                            background-color: #0070f390;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "success", "#0070f3")}
+                    onClick={() => changeColor(id, "#0070f390")}
                 ></div>
                 <div
+                    // Red
                     css={[
                         colorButton,
                         css`
-                            background-color: #ee0000;
+                            background-color: #ee000090;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "error", "#ee0000")}
+                    onClick={() => changeColor(id, "#ee000090")}
                 ></div>
                 <div
+                    // Yellow
                     css={[
                         colorButton,
                         css`
-                            background-color: #f5a623;
+                            background-color: #f5a62390;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "warning", "#f5a623")}
+                    onClick={() => changeColor(id, "#f5a62390")}
                 ></div>
             </div>
             <div
-                css={css`
-                    display: flex;
-                    flex-direction: row;
-                    margin-top: 5px;
-                `}
+                css={[
+                    row,
+                    css`
+                        margin-top: 5px;
+                    `,
+                ]}
             >
                 <div
+                    // Deafult
                     css={[
                         colorButton,
                         css`
@@ -87,34 +92,37 @@ const ColorPicker = ({ id }) => {
                             -webkit-box-sizing: border-box;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "default", "")}
+                    onClick={() => changeColor(id, "")}
                 ></div>
                 <div
+                    // Cyan
                     css={[
                         colorButton,
                         css`
-                            background-color: #50e3c2;
+                            background-color: #50e3c290;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "cyan", "#50e3c2")}
+                    onClick={() => changeColor(id, "#50e3c290")}
                 ></div>
                 <div
+                    // Pink
                     css={[
                         colorButton,
                         css`
-                            background-color: #ff0080;
+                            background-color: #ff008090;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "alert", "#ff0080")}
+                    onClick={() => changeColor(id, "#ff008090")}
                 ></div>
                 <div
+                    // Purple
                     css={[
                         colorButton,
                         css`
-                            background-color: #7928ca;
+                            background-color: #7928ca90;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "violet", "#7928ca")}
+                    onClick={() => changeColor(id, "#7928ca90")}
                 ></div>
             </div>
         </div>
