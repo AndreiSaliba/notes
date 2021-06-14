@@ -23,11 +23,8 @@ const AddNote = () => {
                     id: notes.length > 0 ? notes[0].id + 1 : 1,
                     title,
                     note,
-                    pinned: false,
                     color: "",
-                    colorHex: "",
-                    archived: false,
-                    deleted: false,
+                    pinned: false,
                 },
                 ...notes,
             ]);

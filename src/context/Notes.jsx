@@ -1,11 +1,28 @@
 import React, { useState, useEffect, createContext } from "react";
 
+import app from "../firebase";
+
 export const NotesContext = createContext();
 
 export const NotesProvider = ({ children }) => {
-    const [notes, setNotes] = useState(
-        JSON.parse(localStorage.getItem("notes")) ?? []
-    );
+    const [currentUser, setCurrentUser] = useState();
+    const [notes, setNotes] = useState([]);
+
+    const loadNotes = (user) => {
+        if (user.uid) {
+            app.firestore()
+                .collection("users")
+                .doc(user.uid)
+                .get()
+                .then((doc) => {
+                    setCurrentUser(user);
+                    setNotes(doc.data().notes ?? []);
+                })
+                .catch((error) => {
+                    console.log("Error getting document:", error);
+                });
+        }
+    };
 
     const pinNote = (id) => {
         let tempNotes = [...notes];
@@ -42,8 +59,21 @@ export const NotesProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        localStorage.setItem("notes", JSON.stringify(notes));
-    }, [notes]);
+        if (currentUser) {
+            app.firestore()
+                .collection("users")
+                .doc(currentUser.uid)
+                .set({
+                    userID: currentUser.uid,
+                    email: currentUser.email,
+                    notes: notes,
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+        }
+        // localStorage.setItem("notes", JSON.stringify(notes));
+    }, [currentUser, notes]);
 
     return (
         <NotesContext.Provider
@@ -54,6 +84,7 @@ export const NotesProvider = ({ children }) => {
                 deleteNote,
                 pinNote,
                 changeColor,
+                loadNotes,
             }}
         >
             {children}

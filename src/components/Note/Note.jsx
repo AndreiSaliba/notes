@@ -13,7 +13,7 @@ import ColorPicker from "../ColorPicker/ColorPicker";
 const Note = ({ item }) => {
     const { getTheme } = useContext(ThemeContext);
     const { notes, setNotes, pinNote, deleteNote } = useContext(NotesContext); //archiveNote,
-    const { id, title, note, pinned, color, colorHex } = item; //archived,
+    const { id, title, note, pinned, color } = item; //archived,
 
     //Edit Note
     const [modalTitle, setModalTitle] = useState(note);

@@ -23,36 +23,69 @@ const Signup = () => {
         onSubmit: async (values) => {
             if (values.email && values.password) {
                 if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                    try {
-                        await app
-                            .auth()
-                            .createUserWithEmailAndPassword(
-                                values.email,
-                                values.password
-                            );
-                        setError("");
-                        history.push("/");
-                    } catch (error) {
-                        switch (error.code) {
-                            case "auth/email-already-in-use":
-                                setError("Email address already in use.");
-                                break;
-                            case "auth/weak-password":
-                                setError("Weak password");
-                                break;
-                            case "auth/invalid-email":
-                                setError("Invalid email address");
-                                break;
-                            case "auth/operation-not-allowed":
-                                setError(
-                                    "Accounts can't be created with email and password."
-                                );
-                                break;
-                            default:
-                                setError("An error has occourred");
-                                break;
-                        }
-                    }
+                    app.auth()
+                        .createUserWithEmailAndPassword(
+                            values.email,
+                            values.password
+                        )
+                        .then((user) => {
+                            app.firestore()
+                                .collection("users")
+                                .doc(user.user.uid)
+                                .set({
+                                    userID: user.user.uid,
+                                    email: user.user.email,
+                                    notes: [],
+                                })
+                                .then(() => {
+                                    console.log("Document written");
+                                })
+                                .catch((error) => {
+                                    console.error(
+                                        "Error adding document: ",
+                                        error
+                                    );
+                                });
+                        })
+                        .then(() => {
+                            setError("");
+                            history.push("/");
+                        })
+                        .catch((error) => {
+                            switch (error.code) {
+                                case "auth/email-already-in-use":
+                                    setError("Email address already in use.");
+                                    break;
+                                case "auth/weak-password":
+                                    setError("Weak password");
+                                    break;
+                                case "auth/invalid-email":
+                                    setError("Invalid email address");
+                                    break;
+                                case "auth/operation-not-allowed":
+                                    setError(
+                                        "Accounts can't be created with email and password."
+                                    );
+                                    break;
+                                default:
+                                    setError("An error has occourred");
+                                    break;
+                            }
+                        });
+
+                    // try {
+                    //     await app
+                    //         .auth()
+                    //         .createUserWithEmailAndPassword(
+                    //             values.email,
+                    //             values.password
+                    //         );
+
+                    //     // const user = app.auth().currentUser;
+                    //     // if (user) {
+                    //     //     );
+                    //     // }
+                    // } catch (error) {}
                 } else {
                     setError("Invalid email address");
                 }

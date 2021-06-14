@@ -32,15 +32,20 @@ const ColorPicker = ({ id }) => {
         <div css={container}>
             <div css={row}>
                 <div
-                    // Grey
+                    // Deafult
                     css={[
                         colorButton,
                         css`
-                            background-color: #55555590;
+                            border: 1px solid
+                                ${getTheme() === "dark" ? "#333" : "#eaeaea"};
+                            box-sizing: border-box;
+                            -moz-box-sizing: border-box;
+                            -webkit-box-sizing: border-box;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#55555590")}
+                    onClick={() => changeColor(id, "")}
                 ></div>
+
                 <div
                     // Blue
                     css={[
@@ -81,18 +86,14 @@ const ColorPicker = ({ id }) => {
                 ]}
             >
                 <div
-                    // Deafult
+                    // Grey
                     css={[
                         colorButton,
                         css`
-                            border: 1px solid
-                                ${getTheme() === "dark" ? "#333" : "#eaeaea"};
-                            box-sizing: border-box;
-                            -moz-box-sizing: border-box;
-                            -webkit-box-sizing: border-box;
+                            background-color: #55555590;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "")}
+                    onClick={() => changeColor(id, "#55555590")}
                 ></div>
                 <div
                     // Cyan
