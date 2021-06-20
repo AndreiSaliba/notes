@@ -4,11 +4,11 @@ import { AuthProvider } from "./context/Auth";
 import { NotesProvider } from "./context/Notes";
 import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { ThemeContext } from "./context/Theme";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import Login from "./components/pages/Login/Login";
-import Signup from "./components/pages/Signup/Signup";
-import Home from "./components/pages/Home/Home";
-import ResetPassword from "./components/pages/ResetPassword/ResetPassword";
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
+import Home from "./pages/Home/Home";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import "./App.css";
 
 function App() {

@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
-import { NotesContext } from "../../../context/Notes";
-import { AuthContext } from "../../../context/Auth";
-import AddNote from "./AddNote/AddNote";
-import Header from "./Header/Header";
-import Notes from "./Notes/Notes";
+import { NotesContext } from "../../context/Notes";
+import { AuthContext } from "../../context/Auth";
+import AddNote from "../../components/AddNote";
+import Header from "../../components/Header";
+import Notes from "../../components/Notes";
 import "./Home.css";
 
 const Home = () => {

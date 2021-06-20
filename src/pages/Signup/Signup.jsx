@@ -1,17 +1,16 @@
 import { useState, useContext } from "react";
-import { useFormik } from "formik";
 import { useHistory, Link } from "react-router-dom";
+import { useFormik } from "formik";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
-import { AuthContext } from "../../../context/Auth";
-import { ThemeContext } from "../../../context/Theme";
-import app from "../../../firebase";
-import "./Login.css";
+import { ThemeContext } from "../../context/Theme";
+import { AuthContext } from "../../context/Auth";
+import firebase from "../../firebase";
+import "./Signup.css";
 
-const Login = () => {
+const Signup = () => {
     const history = useHistory();
     const { currentUser } = useContext(AuthContext);
     const { getTheme } = useContext(ThemeContext);
-
     currentUser && history.push("/");
 
     const [error, setError] = useState("");
@@ -24,50 +23,75 @@ const Login = () => {
         onSubmit: async (values) => {
             if (values.email && values.password) {
                 if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                    try {
-                        await app
-                            .auth()
-                            .signInWithEmailAndPassword(
-                                values.email,
-                                values.password
-                            );
-                        setError("");
-                        history.push("/");
-                    } catch (error) {
-                        switch (error.code) {
-                            case "auth/wrong-password":
-                                setError("Wrong password");
-                                break;
-                            case "auth/user-not-found":
-                                setError("User not found");
-                                break;
-                            case "auth/invalid-email":
-                                setError("Invalid email address");
-                                break;
-                            case "auth/user-disabled":
-                                setError("Your account has been disabled");
-                                break;
-                            default:
-                                setError("An error has occourred");
-                                console.log(error);
-                                break;
-                        }
-                    }
+                    firebase
+                        .auth()
+                        .createUserWithEmailAndPassword(
+                            values.email,
+                            values.password
+                        )
+                        .then((user) => {
+                            firebase
+                                .firestore()
+                                .collection("users")
+                                .doc(user.user.uid)
+                                .set(
+                                    {
+                                        userID: user.user.uid,
+                                        email: user.user.email,
+                                        notes: [],
+                                    },
+                                    { merge: true }
+                                )
+                                .then(() => {
+                                    console.log("Document written");
+                                })
+                                .catch((error) => {
+                                    console.error(
+                                        "Error adding document: ",
+                                        error
+                                    );
+                                });
+                        })
+                        .then(() => {
+                            setError("");
+                            history.push("/");
+                        })
+                        .catch((error) => {
+                            switch (error.code) {
+                                case "auth/email-already-in-use":
+                                    setError("Email address already in use.");
+                                    break;
+                                case "auth/weak-password":
+                                    setError("Weak password");
+                                    break;
+                                case "auth/invalid-email":
+                                    setError("Invalid email address");
+                                    break;
+                                case "auth/operation-not-allowed":
+                                    setError(
+                                        "Accounts can't be created with email and password."
+                                    );
+                                    break;
+                                default:
+                                    setError("An error has occourred");
+                                    break;
+                            }
+                        });
                 } else {
                     setError("Invalid email address");
                 }
             } else {
-                setError("Please enter your email and password");
+                setError("Please enter an email and a password");
             }
         },
     });
 
     return (
-        <div className="Login-Page">
+        <div className="Signup-Page">
             <Card width="400px">
-                <div className="Login-Form">
+                <form className="Signup-Form">
                     <Text size={30} b>
-                        Login
+                        Sign Up
                     </Text>
                     <span className="input-wrapper">
                         <label htmlFor="email">Email</label>
@@ -105,7 +129,7 @@ const Login = () => {
                     <Button auto type="success" onClick={formik.handleSubmit}>
                         <span style={{ width: "175px" }}>Submit</span>
                     </Button>
-                </div>
+                </form>
             </Card>
             <span
                 style={{
@@ -117,7 +141,7 @@ const Login = () => {
                     margin: "10px",
                 }}
             >
-                <Link to="/signup">
+                <Link to="/login">
                     <Text
                         small
                         size={13}
@@ -125,7 +149,7 @@ const Login = () => {
                             color: getTheme() === "dark" ? "#fff" : "#000",
                         }}
                     >
-                        Don't have an account? Sign Up
+                        Already have an account? Login
                     </Text>
                 </Link>
                 <Link to="/reset">
@@ -144,4 +168,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;

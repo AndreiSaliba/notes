@@ -2,10 +2,9 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { useState, useRef, useContext } from "react";
-import { NotesContext } from "../../../../context/Notes";
-import { ThemeContext } from "../../../../context/Theme";
+import { NotesContext } from "../context/Notes";
+import { ThemeContext } from "../context/Theme";
 import { Card, useClickAway } from "@geist-ui/react";
-import "./AddNote.css";
 
 const AddNote = () => {
     const { notes, setNotes } = useContext(NotesContext);
@@ -20,7 +19,7 @@ const AddNote = () => {
         (title !== "" || note !== "") &&
             setNotes([
                 {
-                    id: notes.length > 0 ? notes[0].id + 1 : 1,
+                    id: new Date().getTime().toString(36),
                     title,
                     note,
                     color: "",
@@ -42,24 +41,56 @@ const AddNote = () => {
             }}
         >
             <Card
-                style={{ width: "550px", maxWidth: "85vw", marginTop: "30px" }}
+                style={{
+                    width: "550px",
+                    maxWidth: "91.5vw",
+                    marginTop: "30px",
+                }}
             >
                 <Card.Content style={{ padding: "10px 15px" }}>
                     {opened ? (
-                        <div className="Add-Content">
+                        <div
+                            css={css`
+                                display: flex;
+                                flex-direction: column;
+                                outline: none;
+                            `}
+                        >
                             <div
-                                className="Title-Input"
                                 contentEditable="true"
                                 placeholder="Title"
+                                css={css`
+                                    width: 100%;
+                                    max-width: 100%;
+                                    margin-bottom: 15px;
+                                    outline: none;
+                                    overflow-wrap: break-word;
+                                    font-size: 20px;
+                                    white-space: pre-wrap;
+                                    &:empty::before {
+                                        content: attr(placeholder);
+                                        color: #555;
+                                    }
+                                `}
                                 onInput={(e) => {
                                     setTitle(e.currentTarget.innerText);
                                 }}
                             ></div>
 
                             <div
-                                className="Note-Input"
                                 contentEditable="true"
                                 placeholder="Add note"
+                                css={css`
+                                    width: 100%;
+                                    max-width: 100%;
+                                    overflow-wrap: break-word;
+                                    outline: none;
+                                    white-space: pre-wrap;
+                                    &:empty::before {
+                                        content: attr(placeholder);
+                                        color: #555;
+                                    }
+                                `}
                                 onInput={(e) => {
                                     setNote(e.currentTarget.innerText);
                                 }}
@@ -89,9 +120,19 @@ const AddNote = () => {
                         </div>
                     ) : (
                         <div
-                            className="Note-Input"
                             contentEditable="true"
                             placeholder="Add note"
+                            css={css`
+                                width: 100%;
+                                max-width: 100%;
+                                overflow-wrap: break-word;
+                                outline: none;
+                                white-space: pre-wrap;
+                                &:empty::before {
+                                    content: attr(placeholder);
+                                    color: #555;
+                                }
+                            `}
                         ></div>
                     )}
                 </Card.Content>

@@ -35,16 +35,16 @@ export const NotesProvider = ({ children }) => {
         setNotes([...tempNotes]);
     };
 
-    const deleteNote = (id) => {
-        setNotes(notes.filter((item) => item.id !== id));
-    };
-
     const changeColor = (id, color) => {
         let tempNotes = [...notes];
         tempNotes[
             tempNotes.indexOf(tempNotes.find((item) => item.id === id))
         ].color = color;
         setNotes([...tempNotes]);
+    };
+
+    const deleteNote = (id) => {
+        setNotes(notes.filter((item) => item.id !== id));
     };
 
     useEffect(() => {

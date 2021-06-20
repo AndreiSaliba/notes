@@ -2,9 +2,9 @@ import { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
-import { ThemeContext } from "../../../context/Theme";
-import { AuthContext } from "../../../context/Auth";
-import firebase from "../../../firebase";
+import { ThemeContext } from "../../context/Theme";
+import { AuthContext } from "../../context/Auth";
+import firebase from "../../firebase";
 import "./ResetPassword.css";
 
 const ResetPassword = () => {

@@ -3,12 +3,12 @@
 import { jsx, css } from "@emotion/react";
 import { useContext, useState } from "react";
 import { Card, Popover, Modal } from "@geist-ui/react";
-import { IoTrashOutline } from "react-icons/io5";
 import { AiFillPushpin, AiOutlinePushpin } from "react-icons/ai";
+import { IoTrashOutline } from "react-icons/io5";
 import { RiPaletteLine } from "react-icons/ri";
-import { ThemeContext } from "../../../../context/Theme";
-import { NotesContext } from "../../../../context/Notes";
-import ColorPicker from "../ColorPicker/ColorPicker";
+import { ThemeContext } from "../context/Theme";
+import { NotesContext } from "../context/Notes";
+import ColorPicker from "./ColorPicker";
 
 const Note = ({ item }) => {
     const { getTheme } = useContext(ThemeContext);
@@ -26,7 +26,7 @@ const Note = ({ item }) => {
         setModalTitle(title);
         setModalNote(note);
     };
-    const closeHandler = (event) => {
+    const closeHandler = () => {
         setOpen(false);
         if (modalTitle === title || modalNote === note) {
             let tempNotes = [...notes];
@@ -53,7 +53,13 @@ const Note = ({ item }) => {
         }
     `;
 
-    const content = () => <ColorPicker id={id} />;
+    const cardText = css`
+        width: 100%;
+        margin-bottom: 10px;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+        outline: none;
+    `;
 
     return (
         <div>
@@ -77,8 +83,35 @@ const Note = ({ item }) => {
             >
                 <Card.Content style={{ padding: "10px" }}>
                     <span onClick={handler}>
-                        <div className="Card-Text Home Title">{title}</div>
-                        <div className="Card-Text Home">{note}</div>
+                        <div
+                            css={[
+                                cardText,
+                                css`
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    font-size: 20px;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 5;
+                                    -webkit-box-orient: vertical;
+                                `,
+                            ]}
+                        >
+                            {title}
+                        </div>
+                        <div
+                            css={[
+                                cardText,
+                                css`
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 17;
+                                    -webkit-box-orient: vertical;
+                                `,
+                            ]}
+                        >
+                            {note}
+                        </div>
                     </span>
                     <div
                         className="Controls-Container"
@@ -105,7 +138,10 @@ const Note = ({ item }) => {
                             />
                         )}
 
-                        <Popover content={content} trigger="hover">
+                        <Popover
+                            content={() => <ColorPicker id={id} />}
+                            trigger="hover"
+                        >
                             <RiPaletteLine css={hoverButton} />
                         </Popover>
 
@@ -132,9 +168,15 @@ const Note = ({ item }) => {
                 >
                     <div
                         className="Title-Input"
+                        css={css`
+                            margin-bottom: 5px;
+                            font-size: 20px;
+                            overflow-wrap: break-word;
+                            white-space: pre-wrap;
+                            outline: none;
+                        `}
                         contentEditable
                         suppressContentEditableWarning
-                        placeholder="Title"
                         onLoad={(e) => {
                             setModalTitle(e.currentTarget.innerText);
                         }}
@@ -145,13 +187,10 @@ const Note = ({ item }) => {
                         {title}
                     </div>
                     <div
-                        className="Card-Text"
                         contentEditable
                         suppressContentEditableWarning
                         placeholder="Add note"
-                        css={css`
-                            outline: none;
-                        `}
+                        css={cardText}
                         onLoad={(e) => {
                             setModalNote(e.currentTarget.innerText);
                         }}

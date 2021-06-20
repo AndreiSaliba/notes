@@ -1,10 +1,12 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx, css } from "@emotion/react";
 import { useContext } from "react";
 import { Button, Text, Popover, Select } from "@geist-ui/react";
 import { BrowserRouter as Link } from "react-router-dom";
 import { Settings, Display, Moon, Sun } from "@geist-ui/react-icons";
-import { ThemeContext } from "../../../../context/Theme";
-import firebase from "../../../../firebase";
-import "./Header.css";
+import { ThemeContext } from "../context/Theme";
+import firebase from "../firebase";
 
 const Header = () => {
     const { currentTheme, updateTheme } = useContext(ThemeContext);
@@ -46,8 +48,26 @@ const Header = () => {
     );
 
     return (
-        <div className="Header-Wrapper">
-            <div className="Header-Container">
+        <div
+            // className="Header-Wrapper"
+            css={css`
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `}
+        >
+            <div
+                // className="Header-Container"
+                css={css`
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 85vw;
+                    @media only screen and (max-width: 615px) {
+                        width: 91.5vw;
+                    }
+                `}
+            >
                 <Link to="/">
                     <Text h2 style={{ userSelect: "none" }}>
                         Notes

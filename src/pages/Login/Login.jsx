@@ -1,16 +1,17 @@
 import { useState, useContext } from "react";
-import { useHistory, Link } from "react-router-dom";
 import { useFormik } from "formik";
+import { useHistory, Link } from "react-router-dom";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
-import { ThemeContext } from "../../../context/Theme";
-import { AuthContext } from "../../../context/Auth";
-import firebase from "../../../firebase";
-import "./Signup.css";
+import { AuthContext } from "../../context/Auth";
+import { ThemeContext } from "../../context/Theme";
+import app from "../../firebase";
+import "./Login.css";
 
-const Signup = () => {
+const Login = () => {
     const history = useHistory();
     const { currentUser } = useContext(AuthContext);
     const { getTheme } = useContext(ThemeContext);
+
     currentUser && history.push("/");
 
     const [error, setError] = useState("");
@@ -23,75 +24,50 @@ const Signup = () => {
         onSubmit: async (values) => {
             if (values.email && values.password) {
                 if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                    firebase
-                        .auth()
-                        .createUserWithEmailAndPassword(
-                            values.email,
-                            values.password
-                        )
-                        .then((user) => {
-                            firebase
-                                .firestore()
-                                .collection("users")
-                                .doc(user.user.uid)
-                                .set(
-                                    {
-                                        userID: user.user.uid,
-                                        email: user.user.email,
-                                        notes: [],
-                                    },
-                                    { merge: true }
-                                )
-                                .then(() => {
-                                    console.log("Document written");
-                                })
-                                .catch((error) => {
-                                    console.error(
-                                        "Error adding document: ",
-                                        error
-                                    );
-                                });
-                        })
-                        .then(() => {
-                            setError("");
-                            history.push("/");
-                        })
-                        .catch((error) => {
-                            switch (error.code) {
-                                case "auth/email-already-in-use":
-                                    setError("Email address already in use.");
-                                    break;
-                                case "auth/weak-password":
-                                    setError("Weak password");
-                                    break;
-                                case "auth/invalid-email":
-                                    setError("Invalid email address");
-                                    break;
-                                case "auth/operation-not-allowed":
-                                    setError(
-                                        "Accounts can't be created with email and password."
-                                    );
-                                    break;
-                                default:
-                                    setError("An error has occourred");
-                                    break;
-                            }
-                        });
+                    try {
+                        await app
+                            .auth()
+                            .signInWithEmailAndPassword(
+                                values.email,
+                                values.password
+                            );
+                        setError("");
+                        history.push("/");
+                    } catch (error) {
+                        switch (error.code) {
+                            case "auth/wrong-password":
+                                setError("Wrong password");
+                                break;
+                            case "auth/user-not-found":
+                                setError("User not found");
+                                break;
+                            case "auth/invalid-email":
+                                setError("Invalid email address");
+                                break;
+                            case "auth/user-disabled":
+                                setError("Your account has been disabled");
+                                break;
+                            default:
+                                setError("An error has occourred");
+                                console.log(error);
+                                break;
+                        }
+                    }
                 } else {
                     setError("Invalid email address");
                 }
             } else {
-                setError("Please enter an email and a password");
+                setError("Please enter your email and password");
             }
         },
     });
 
     return (
-        <div className="Signup-Page">
+        <div className="Login-Page">
             <Card width="400px">
-                <form className="Signup-Form">
+                <div className="Login-Form">
                     <Text size={30} b>
-                        Sign Up
+                        Login
                     </Text>
                     <span className="input-wrapper">
                         <label htmlFor="email">Email</label>
@@ -129,7 +105,7 @@ const Signup = () => {
                     <Button auto type="success" onClick={formik.handleSubmit}>
                         <span style={{ width: "175px" }}>Submit</span>
                     </Button>
-                </form>
+                </div>
             </Card>
             <span
                 style={{
@@ -141,7 +117,7 @@ const Signup = () => {
                     margin: "10px",
                 }}
             >
-                <Link to="/login">
+                <Link to="/signup">
                     <Text
                         small
                         size={13}
@@ -149,7 +125,7 @@ const Signup = () => {
                             color: getTheme() === "dark" ? "#fff" : "#000",
                         }}
                     >
-                        Already have an account? Login
+                        Don't have an account? Sign Up
                     </Text>
                 </Link>
                 <Link to="/reset">
@@ -168,4 +144,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default Login;
