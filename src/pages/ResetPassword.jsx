@@ -1,11 +1,13 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx, css } from "@emotion/react";
 import { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { useFormik } from "formik";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
-import { ThemeContext } from "../../context/Theme";
-import { AuthContext } from "../../context/Auth";
-import firebase from "../../firebase";
-import "./ResetPassword.css";
+import { useFormik } from "formik";
+import { ThemeContext } from "../context/Theme";
+import { AuthContext } from "../context/Auth";
+import firebase from "../firebase";
 
 const ResetPassword = () => {
     const history = useHistory();
@@ -23,24 +25,27 @@ const ResetPassword = () => {
 
         onSubmit: async (values) => {
             if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                try {
-                    await firebase.auth().sendPasswordResetEmail(values.email);
-                    setError("");
-                    setSuccess("Reset password email sent");
-                } catch (error) {
-                    switch (error.code) {
-                        case "auth/invalid-email":
-                            setError("Invalid Email Address");
-                            break;
-                        case "auth/user-not-found":
-                            setError("User not found");
-                            break;
-                        default:
-                            setError("An error has occourred");
-                            console.log(error);
-                            break;
-                    }
-                }
+                firebase
+                    .auth()
+                    .sendPasswordResetEmail(values.email)
+                    .then(() => {
+                        setError("");
+                        setSuccess("Reset password email sent");
+                    })
+                    .catch((error) => {
+                        switch (error.code) {
+                            case "auth/invalid-email":
+                                setError("Invalid Email Address");
+                                break;
+                            case "auth/user-not-found":
+                                setError("User not found");
+                                break;
+                            default:
+                                setError("An error has occourred");
+                                console.log(error);
+                                break;
+                        }
+                    });
             } else {
                 setError("Invalid email address");
             }
@@ -48,14 +53,34 @@ const ResetPassword = () => {
     });
 
     return (
-        <div className="Reset-Page">
+        <div
+            css={css`
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            `}
+        >
             <Card width="400px">
-                <form className="Reset-Form">
+                <form
+                    css={css`
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                    `}
+                >
                     <Text size={25} b>
                         Send reset password email
                     </Text>
                     <Spacer y={1} />
-                    <span className="input-wrapper">
+                    <span
+                        css={css`
+                            width: 100%;
+                        `}
+                    >
                         <label htmlFor="email">Email</label>
                         <Input
                             id="email"

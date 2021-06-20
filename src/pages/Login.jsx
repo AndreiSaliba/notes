@@ -1,11 +1,13 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx, css } from "@emotion/react";
 import { useState, useContext } from "react";
-import { useFormik } from "formik";
 import { useHistory, Link } from "react-router-dom";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
-import { AuthContext } from "../../context/Auth";
-import { ThemeContext } from "../../context/Theme";
-import app from "../../firebase";
-import "./Login.css";
+import { useFormik } from "formik";
+import { ThemeContext } from "../context/Theme";
+import { AuthContext } from "../context/Auth";
+import firebase from "../firebase";
 
 const Login = () => {
     const history = useHistory();
@@ -24,35 +26,36 @@ const Login = () => {
         onSubmit: async (values) => {
             if (values.email && values.password) {
                 if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                    try {
-                        await app
-                            .auth()
-                            .signInWithEmailAndPassword(
-                                values.email,
-                                values.password
-                            );
-                        setError("");
-                        history.push("/");
-                    } catch (error) {
-                        switch (error.code) {
-                            case "auth/wrong-password":
-                                setError("Wrong password");
-                                break;
-                            case "auth/user-not-found":
-                                setError("User not found");
-                                break;
-                            case "auth/invalid-email":
-                                setError("Invalid email address");
-                                break;
-                            case "auth/user-disabled":
-                                setError("Your account has been disabled");
-                                break;
-                            default:
-                                setError("An error has occourred");
-                                console.log(error);
-                                break;
-                        }
-                    }
+                    firebase
+                        .auth()
+                        .signInWithEmailAndPassword(
+                            values.email,
+                            values.password
+                        )
+                        .then(() => {
+                            setError("");
+                            history.push("/");
+                        })
+                        .catch((error) => {
+                            switch (error.code) {
+                                case "auth/wrong-password":
+                                    setError("Wrong password");
+                                    break;
+                                case "auth/user-not-found":
+                                    setError("User not found");
+                                    break;
+                                case "auth/invalid-email":
+                                    setError("Invalid email address");
+                                    break;
+                                case "auth/user-disabled":
+                                    setError("Your account has been disabled");
+                                    break;
+                                default:
+                                    setError("An error has occourred");
+                                    console.log(error);
+                                    break;
+                            }
+                        });
                 } else {
                     setError("Invalid email address");
                 }
@@ -63,13 +66,33 @@ const Login = () => {
     });
 
     return (
-        <div className="Login-Page">
+        <div
+            css={css`
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            `}
+        >
             <Card width="400px">
-                <div className="Login-Form">
+                <div
+                    css={css`
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                    `}
+                >
                     <Text size={30} b>
                         Login
                     </Text>
-                    <span className="input-wrapper">
+                    <span
+                        css={css`
+                            width: 100%;
+                        `}
+                    >
                         <label htmlFor="email">Email</label>
                         <Input
                             id="email"
@@ -80,7 +103,11 @@ const Login = () => {
                         />
                     </span>
                     <Spacer y={0.5} />
-                    <span className="input-wrapper">
+                    <span
+                        css={css`
+                            width: 100%;
+                        `}
+                    >
                         <label htmlFor="password">Password</label>
                         <Input.Password
                             id="password"

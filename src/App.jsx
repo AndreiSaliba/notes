@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { AuthProvider } from "./context/Auth";
 import { NotesProvider } from "./context/Notes";
-import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { ThemeContext } from "./context/Theme";
 import PrivateRoute from "./components/PrivateRoute";
-import Login from "./pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
-import Home from "./pages/Home/Home";
-import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import ResetPassword from "./pages/ResetPassword";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 import "./App.css";
 
 function App() {

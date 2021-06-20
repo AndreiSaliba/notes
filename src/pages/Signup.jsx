@@ -1,11 +1,13 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx, css } from "@emotion/react";
 import { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { useFormik } from "formik";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
-import { ThemeContext } from "../../context/Theme";
-import { AuthContext } from "../../context/Auth";
-import firebase from "../../firebase";
-import "./Signup.css";
+import { useFormik } from "formik";
+import { ThemeContext } from "../context/Theme";
+import { AuthContext } from "../context/Auth";
+import firebase from "../firebase";
 
 const Signup = () => {
     const history = useHistory();
@@ -87,13 +89,34 @@ const Signup = () => {
     });
 
     return (
-        <div className="Signup-Page">
+        <div
+            css={css`
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            `}
+        >
             <Card width="400px">
-                <form className="Signup-Form">
+                <form
+                    className="Signup-Form"
+                    css={css`
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                    `}
+                >
                     <Text size={30} b>
                         Sign Up
                     </Text>
-                    <span className="input-wrapper">
+                    <span
+                        css={css`
+                            width: 100%;
+                        `}
+                    >
                         <label htmlFor="email">Email</label>
                         <Input
                             id="email"
@@ -104,7 +127,11 @@ const Signup = () => {
                         />
                     </span>
                     <Spacer y={0.5} />
-                    <span className="input-wrapper">
+                    <span
+                        css={css`
+                            width: 100%;
+                        `}
+                    >
                         <label htmlFor="password">Password</label>
                         <Input.Password
                             id="password"
