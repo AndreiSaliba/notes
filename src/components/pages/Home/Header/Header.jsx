@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { Button, Text, Popover, Select } from "@geist-ui/react";
 import { BrowserRouter as Link } from "react-router-dom";
 import { Settings, Display, Moon, Sun } from "@geist-ui/react-icons";
-import { ThemeContext } from "../../context/Theme";
-import app from "../../firebase";
+import { ThemeContext } from "../../../../context/Theme";
+import firebase from "../../../../firebase";
 import "./Header.css";
 
 const Header = () => {
@@ -13,7 +13,7 @@ const Header = () => {
         <div style={{}}>
             <Popover.Item style={{ padding: "5px 15px" }}>
                 <Select
-                    // pure
+                    pure
                     value={currentTheme}
                     size="mini"
                     style={{ height: "35px" }}
@@ -39,7 +39,7 @@ const Header = () => {
                     </Select.Option>
                 </Select>
             </Popover.Item>
-            <Popover.Item onClick={() => app.auth().signOut()}>
+            <Popover.Item onClick={() => firebase.auth().signOut()}>
                 <Text>Sign Out</Text>
             </Popover.Item>
         </div>

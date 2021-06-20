@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-
-import app from "../firebase";
+import firebase from "../firebase";
 
 export const NotesContext = createContext();
 
@@ -10,7 +9,8 @@ export const NotesProvider = ({ children }) => {
 
     const loadNotes = (user) => {
         if (user.uid) {
-            app.firestore()
+            firebase
+                .firestore()
                 .collection("users")
                 .doc(user.uid)
                 .get()
@@ -35,17 +35,6 @@ export const NotesProvider = ({ children }) => {
         setNotes([...tempNotes]);
     };
 
-    const archiveNote = (id) => {
-        let tempNotes = [...notes];
-        tempNotes[
-            tempNotes.indexOf(tempNotes.find((item) => item.id === id))
-        ].archived =
-            !tempNotes[
-                tempNotes.indexOf(tempNotes.find((item) => item.id === id))
-            ].archived;
-        setNotes([...tempNotes]);
-    };
-
     const deleteNote = (id) => {
         setNotes(notes.filter((item) => item.id !== id));
     };
@@ -60,19 +49,20 @@ export const NotesProvider = ({ children }) => {
 
     useEffect(() => {
         if (currentUser) {
-            app.firestore()
+            firebase
+                .firestore()
                 .collection("users")
                 .doc(currentUser.uid)
-                .set({
-                    userID: currentUser.uid,
-                    email: currentUser.email,
-                    notes: notes,
-                })
+                .set(
+                    {
+                        notes: notes,
+                    },
+                    { merge: true }
+                )
                 .catch((error) => {
-                    console.error("Error adding document: ", error);
+                    console.error("Error updating document: ", error);
                 });
         }
-        // localStorage.setItem("notes", JSON.stringify(notes));
     }, [currentUser, notes]);
 
     return (
@@ -80,7 +70,6 @@ export const NotesProvider = ({ children }) => {
             value={{
                 notes,
                 setNotes,
-                archiveNote,
                 deleteNote,
                 pinNote,
                 changeColor,

@@ -9,7 +9,6 @@ import Login from "./components/pages/Login/Login";
 import Signup from "./components/pages/Signup/Signup";
 import Home from "./components/pages/Home/Home";
 import ResetPassword from "./components/pages/ResetPassword/ResetPassword";
-// import app from "./firebase";
 import "./App.css";
 
 function App() {

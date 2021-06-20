@@ -3,19 +3,19 @@
 import { jsx, css } from "@emotion/react";
 import { useContext, useState } from "react";
 import { Card, Popover, Modal } from "@geist-ui/react";
-import { IoTrashOutline } from "react-icons/io5"; //, IoArchiveOutline, IoArchive
+import { IoTrashOutline } from "react-icons/io5";
 import { AiFillPushpin, AiOutlinePushpin } from "react-icons/ai";
 import { RiPaletteLine } from "react-icons/ri";
-import { ThemeContext } from "../../context/Theme";
-import { NotesContext } from "../../context/Notes";
+import { ThemeContext } from "../../../../context/Theme";
+import { NotesContext } from "../../../../context/Notes";
 import ColorPicker from "../ColorPicker/ColorPicker";
 
 const Note = ({ item }) => {
     const { getTheme } = useContext(ThemeContext);
-    const { notes, setNotes, pinNote, deleteNote } = useContext(NotesContext); //archiveNote,
-    const { id, title, note, pinned, color } = item; //archived,
+    const { notes, setNotes, pinNote, deleteNote } = useContext(NotesContext);
+    const { id, title, note, pinned, color } = item;
 
-    //Edit Note
+    // Edit Note
     const [modalTitle, setModalTitle] = useState(note);
     const [modalNote, setModalNote] = useState(title);
 
@@ -62,13 +62,15 @@ const Note = ({ item }) => {
                 css={css`
                     alignself: "flex-start";
 
-                    .Controls-Container {
-                        visibility: hidden;
-                    }
-
-                    &:hover {
+                    @media (hover: hover) {
                         .Controls-Container {
-                            visibility: visible;
+                            visibility: hidden;
+                        }
+
+                        &:hover {
+                            .Controls-Container {
+                                visibility: visible;
+                            }
                         }
                     }
                 `}
@@ -107,18 +109,6 @@ const Note = ({ item }) => {
                             <RiPaletteLine css={hoverButton} />
                         </Popover>
 
-                        {/* {archived ? (
-                            <IoArchive
-                                css={hoverButton}
-                                onClick={() => archiveNote(id)}
-                            />
-                        ) : (
-                            <IoArchiveOutline
-                                css={hoverButton}
-                                onClick={() => archiveNote(id)}
-                            />
-                        )} */}
-
                         <IoTrashOutline
                             css={hoverButton}
                             onClick={() => {
@@ -131,7 +121,6 @@ const Note = ({ item }) => {
             </Card>
 
             <Modal width="600px" open={open} onClose={closeHandler}>
-                {/* ref={Modal} */}
                 <Modal.Content
                     css={css`
                         margin: -22px !important;
@@ -193,22 +182,6 @@ const Note = ({ item }) => {
                             />
                         )}
 
-                        {/* <Popover content={content} trigger="hover">
-                            <RiPaletteLine css={hoverButton} />
-                        </Popover> */}
-
-                        {/* {archived ? (
-                            <IoArchive
-                                css={hoverButton}
-                                onClick={() => archiveNote(id)}
-                            />
-                        ) : (
-                            <IoArchiveOutline
-                                css={hoverButton}
-                                onClick={() => archiveNote(id)}
-                            />
-                        )} */}
-
                         <IoTrashOutline
                             css={hoverButton}
                             onClick={() => deleteNote(id)}
@@ -237,7 +210,6 @@ const Note = ({ item }) => {
                     </div>
                 </Modal.Content>
             </Modal>
-            {/* </div> */}
         </div>
     );
 };

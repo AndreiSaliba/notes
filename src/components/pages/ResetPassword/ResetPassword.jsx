@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
 import { ThemeContext } from "../../../context/Theme";
 import { AuthContext } from "../../../context/Auth";
-import app from "../../../firebase";
+import firebase from "../../../firebase";
 import "./ResetPassword.css";
 
 const ResetPassword = () => {
@@ -24,7 +24,7 @@ const ResetPassword = () => {
         onSubmit: async (values) => {
             if (values.email.match(/^\S+@\S+\.\S+$/)) {
                 try {
-                    await app.auth().sendPasswordResetEmail(values.email);
+                    await firebase.auth().sendPasswordResetEmail(values.email);
                     setError("");
                     setSuccess("Reset password email sent");
                 } catch (error) {

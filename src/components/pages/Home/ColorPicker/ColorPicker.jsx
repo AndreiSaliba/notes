@@ -2,8 +2,8 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { useContext } from "react";
-import { ThemeContext } from "../../context/Theme";
-import { NotesContext } from "../../context/Notes";
+import { ThemeContext } from "../../../../context/Theme";
+import { NotesContext } from "../../../../context/Notes";
 
 const ColorPicker = ({ id }) => {
     const { getTheme } = useContext(ThemeContext);

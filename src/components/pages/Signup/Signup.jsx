@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
 import { ThemeContext } from "../../../context/Theme";
 import { AuthContext } from "../../../context/Auth";
-import app from "../../../firebase";
+import firebase from "../../../firebase";
 import "./Signup.css";
 
 const Signup = () => {
@@ -23,20 +23,25 @@ const Signup = () => {
         onSubmit: async (values) => {
             if (values.email && values.password) {
                 if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                    app.auth()
+                    firebase
+                        .auth()
                         .createUserWithEmailAndPassword(
                             values.email,
                             values.password
                         )
                         .then((user) => {
-                            app.firestore()
+                            firebase
+                                .firestore()
                                 .collection("users")
                                 .doc(user.user.uid)
-                                .set({
-                                    userID: user.user.uid,
-                                    email: user.user.email,
-                                    notes: [],
-                                })
+                                .set(
+                                    {
+                                        userID: user.user.uid,
+                                        email: user.user.email,
+                                        notes: [],
+                                    },
+                                    { merge: true }
+                                )
                                 .then(() => {
                                     console.log("Document written");
                                 })
@@ -72,20 +77,6 @@ const Signup = () => {
                                     break;
                             }
                         });
-
-                    // try {
-                    //     await app
-                    //         .auth()
-                    //         .createUserWithEmailAndPassword(
-                    //             values.email,
-                    //             values.password
-                    //         );
-
-                    //     // const user = app.auth().currentUser;
-                    //     // if (user) {
-                    //     //     );
-                    //     // }
-                    // } catch (error) {}
                 } else {
                     setError("Invalid email address");
                 }

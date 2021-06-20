@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { NotesContext } from "../../context/Notes";
+import { NotesContext } from "../../../../context/Notes";
 import { Text, Spacer } from "@geist-ui/react";
 import Note from "../Note/Note";
 import "./Notes.css";
