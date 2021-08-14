@@ -47,6 +47,13 @@ export const NotesProvider = ({ children }) => {
         setNotes(notes.filter((item) => item.id !== id));
     };
 
+    const reorderNotes = (source, destination) => {
+        const array = notes;
+        const movedItem = array.splice(source, 1)[0];
+        array.splice(destination, 0, movedItem);
+        setNotes([...array]);
+    };
+
     useEffect(() => {
         if (currentUser) {
             firebase
@@ -74,6 +81,7 @@ export const NotesProvider = ({ children }) => {
                 pinNote,
                 changeColor,
                 loadNotes,
+                reorderNotes,
             }}
         >
             {children}
