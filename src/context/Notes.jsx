@@ -25,22 +25,22 @@ export const NotesProvider = ({ children }) => {
     };
 
     const pinNote = (id) => {
-        let tempNotes = [...notes];
-        tempNotes[
-            tempNotes.indexOf(tempNotes.find((item) => item.id === id))
+        let array = [...notes];
+        array[
+            array.indexOf(array.find((item) => item.id === id))
         ].pinned =
-            !tempNotes[
-                tempNotes.indexOf(tempNotes.find((item) => item.id === id))
+            !array[
+                array.indexOf(array.find((item) => item.id === id))
             ].pinned;
-        setNotes([...tempNotes]);
+        setNotes([...array]);
     };
 
     const changeColor = (id, color) => {
-        let tempNotes = [...notes];
-        tempNotes[
-            tempNotes.indexOf(tempNotes.find((item) => item.id === id))
+        let array = [...notes];
+        array[
+            array.indexOf(array.find((item) => item.id === id))
         ].color = color;
-        setNotes([...tempNotes]);
+        setNotes([...array]);
     };
 
     const deleteNote = (id) => {

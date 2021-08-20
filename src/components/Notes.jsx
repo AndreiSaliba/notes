@@ -6,7 +6,6 @@ import { NotesContext } from "../context/Notes";
 import { Text, Spacer } from "@geist-ui/react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Note from "./Note";
-import { move } from "formik";
 
 const Notes = () => {
     const { notes, reorderNotes } = useContext(NotesContext);
@@ -24,8 +23,9 @@ const Notes = () => {
         }
     `;
 
-    const onDragEnd = (result) => {
+    const handleDragEnd = (result) => {
         const { destination, source } = result;
+
         if (!destination) {
             return;
         }
@@ -38,10 +38,7 @@ const Notes = () => {
         }
 
         if (destination.droppableId === source.droppableId) {
-            reorderNotes(
-                source.index,
-                destination.index
-            );
+            reorderNotes(source.index, destination.index);
         }
     };
 
@@ -54,12 +51,12 @@ const Notes = () => {
                 }
             `}
         >
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext onDragEnd={handleDragEnd}>
                 <Spacer y={0.5} />
                 {notes.filter((item) => !!item.pinned).length > 0 && (
                     <div>
                         <Text size={16}>Pinned</Text>
-                        <Droppable droppableId="Pinned">
+                        <Droppable droppableId="Pinned" direction="horizontal">
                             {(provided) => (
                                 <div
                                     css={notesContainer}
@@ -90,7 +87,7 @@ const Notes = () => {
                         {notes.filter((item) => !!item.pinned).length > 0 && (
                             <Text>Other</Text>
                         )}
-                        <Droppable droppableId="Other">
+                        <Droppable droppableId="Other" direction="horizontal">
                             {(provided) => (
                                 <div
                                     css={notesContainer}
@@ -121,31 +118,3 @@ const Notes = () => {
 };
 
 export default Notes;
-
-// {notes.filter((item) => !item.pinned).length > 0 && (
-//     <div>
-//         <Text size={16}>Other</Text>
-//         <Droppable droppableId="droppable-2">
-//             {(provided, snapshot) => (
-//                 <div
-//                     css={notesContainer}
-//                     ref={provided.innerRef}
-//                     {...provided.droppableProps}
-//                 >
-//                     {notes
-//                         .filter((item) => !!item.pinned)
-//                         .map((element, idx) => {
-//                             return (
-//                                 <Note
-//                                     key={element.id}
-//                                     index={idx}
-//                                     item={element}
-//                                 />
-//                             );
-//                         })}
-//                     {provided.placeholder}
-//                 </div>
-//             )}
-//         </Droppable>
-//     </div>
-// )}
