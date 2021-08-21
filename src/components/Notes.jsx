@@ -4,11 +4,11 @@ import { jsx, css } from "@emotion/react";
 import { useContext } from "react";
 import { NotesContext } from "../context/Notes";
 import { Text, Spacer } from "@geist-ui/react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import SortableList from "react-easy-sort";
 import Note from "./Note";
 
 const Notes = () => {
-    const { notes, reorderNotes } = useContext(NotesContext);
+    const { pinned, other, reorderNotes } = useContext(NotesContext);
 
     const notesContainer = css`
         max-width: 100vw;
@@ -23,24 +23,11 @@ const Notes = () => {
         }
     `;
 
-    const handleDragEnd = (result) => {
-        const { destination, source } = result;
+    const handlePinned = (oldIndex, newIndex) =>
+        reorderNotes("pinned", oldIndex, newIndex);
 
-        if (!destination) {
-            return;
-        }
-
-        if (
-            destination.droppableId === source.droppableId &&
-            destination.index === source.index
-        ) {
-            return;
-        }
-
-        if (destination.droppableId === source.droppableId) {
-            reorderNotes(source.index, destination.index);
-        }
-    };
+    const handleOther = (oldIndex, newIndex) =>
+        reorderNotes("other", oldIndex, newIndex);
 
     return (
         <div
@@ -51,68 +38,46 @@ const Notes = () => {
                 }
             `}
         >
-            <DragDropContext onDragEnd={handleDragEnd}>
+            <SortableList
+                onSortEnd={handlePinned}
+                className="pinned"
+                draggedItemClassName="pinned"
+            >
                 <Spacer y={0.5} />
-                {notes.filter((item) => !!item.pinned).length > 0 && (
+                {pinned.length > 0 && (
                     <div>
                         <Text size={16}>Pinned</Text>
-                        <Droppable droppableId="Pinned" direction="horizontal">
-                            {(provided) => (
-                                <div
-                                    css={notesContainer}
-                                    ref={provided.innerRef}
-                                    {...provided.droppableProps}
-                                >
-                                    {notes
-                                        .filter((item) => !!item.pinned)
-                                        .map((element, idx) => {
-                                            return (
-                                                <Note
-                                                    key={element.id}
-                                                    item={element}
-                                                    index={idx}
-                                                />
-                                            );
-                                        })}
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
+                        <div css={notesContainer}>
+                            {pinned.map((element, idx) => {
+                                return <Note key={element.id} item={element} />;
+                            })}
+                        </div>
                     </div>
                 )}
-
-                {notes.filter((item) => !item.pinned).length > 0 && (
+            </SortableList>
+            <SortableList
+                onSortEnd={handleOther}
+                className="other"
+                draggedItemClassName="other"
+            >
+                <Spacer y={0.5} />
+                {other.length > 0 && (
                     <div>
-                        <Spacer y={1} />
-                        {notes.filter((item) => !!item.pinned).length > 0 && (
-                            <Text>Other</Text>
-                        )}
-                        <Droppable droppableId="Other" direction="horizontal">
-                            {(provided) => (
-                                <div
-                                    css={notesContainer}
-                                    ref={provided.innerRef}
-                                    {...provided.droppableProps}
-                                >
-                                    {notes
-                                        .filter((item) => !item.pinned)
-                                        .map((element, idx) => {
-                                            return (
-                                                <Note
-                                                    key={element.id}
-                                                    item={element}
-                                                    index={idx}
-                                                />
-                                            );
-                                        })}
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
+                        {pinned.length > 0 && <Text>Other</Text>}
+                        <div css={notesContainer}>
+                            {other.map((element, idx) => {
+                                return (
+                                    <Note
+                                        key={element.id}
+                                        item={element}
+                                        index={idx}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
                 )}
-                <Spacer y={3} />
-            </DragDropContext>
+            </SortableList>
         </div>
     );
 };

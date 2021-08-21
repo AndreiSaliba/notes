@@ -7,7 +7,7 @@ import { ThemeContext } from "../context/Theme";
 import { Card, useClickAway } from "@geist-ui/react";
 
 const AddNote = () => {
-    const { notes, setNotes } = useContext(NotesContext);
+    const { addNote } = useContext(NotesContext);
     const { getTheme } = useContext(ThemeContext);
     const AddContainer = useRef();
     const [opened, setOpened] = useState(false);
@@ -17,16 +17,13 @@ const AddNote = () => {
     const saveNote = () => {
         setOpened(false);
         (title !== "" || note !== "") &&
-            setNotes([
-                {
-                    id: new Date().getTime().toString(36),
-                    title,
-                    note,
-                    color: "",
-                    pinned: false,
-                },
-                ...notes,
-            ]);
+            addNote({
+                id: new Date().getTime().toString(36),
+                title,
+                note,
+                color: "",
+                pinned: false,
+            });
         setTitle("");
         setNote("");
     };

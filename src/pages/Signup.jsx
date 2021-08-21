@@ -40,7 +40,8 @@ const Signup = () => {
                                     {
                                         userID: user.user.uid,
                                         email: user.user.email,
-                                        notes: [],
+                                        other: [],
+                                        pinned: [],
                                     },
                                     { merge: true }
                                 )

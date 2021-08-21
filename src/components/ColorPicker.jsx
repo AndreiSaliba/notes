@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../context/Theme";
 import { NotesContext } from "../context/Notes";
 
-const ColorPicker = ({ id }) => {
+const ColorPicker = ({ id, isPinned }) => {
     const { getTheme } = useContext(ThemeContext);
     const { changeColor } = useContext(NotesContext);
 
@@ -43,7 +43,7 @@ const ColorPicker = ({ id }) => {
                             -webkit-box-sizing: border-box;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "")}
+                    onClick={() => changeColor(id, "", isPinned)}
                 ></div>
 
                 <div
@@ -54,7 +54,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #0070f390;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#0070f390")}
+                    onClick={() => changeColor(id, "#0070f390", isPinned)}
                 ></div>
                 <div
                     // Red
@@ -64,7 +64,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #ee000090;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#ee000090")}
+                    onClick={() => changeColor(id, "#ee000090", isPinned)}
                 ></div>
                 <div
                     // Yellow
@@ -74,7 +74,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #f5a62390;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#f5a62390")}
+                    onClick={() => changeColor(id, "#f5a62390", isPinned)}
                 ></div>
             </div>
             <div
@@ -93,7 +93,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #55555590;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#55555590")}
+                    onClick={() => changeColor(id, "#55555590", isPinned)}
                 ></div>
                 <div
                     // Cyan
@@ -103,7 +103,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #50e3c290;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#50e3c290")}
+                    onClick={() => changeColor(id, "#50e3c290", isPinned)}
                 ></div>
                 <div
                     // Pink
@@ -113,7 +113,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #ff008090;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#ff008090")}
+                    onClick={() => changeColor(id, "#ff008090", isPinned)}
                 ></div>
                 <div
                     // Purple
@@ -123,7 +123,7 @@ const ColorPicker = ({ id }) => {
                             background-color: #7928ca90;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#7928ca90")}
+                    onClick={() => changeColor(id, "#7928ca90", isPinned)}
                 ></div>
             </div>
         </div>

@@ -10,10 +10,10 @@ import Notes from "../components/Notes";
 
 const Home = () => {
     const { currentUser } = useContext(AuthContext);
-    const { loadNotes } = useContext(NotesContext);
+    const { getNotes } = useContext(NotesContext);
 
     useEffect(() => {
-        loadNotes(currentUser);
+        getNotes(currentUser);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
