@@ -126,7 +126,6 @@ export const NotesProvider = ({ children }) => {
                 deleteNote,
                 pinNote,
                 changeColor,
-                deleteNote,
                 reorderNotes,
             }}
         >

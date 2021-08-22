@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { NotesContext } from "../context/Notes";
 import { Text, Spacer } from "@geist-ui/react";
 import SortableList from "react-easy-sort";
@@ -11,13 +11,14 @@ const Notes = () => {
     const { pinned, other, reorderNotes } = useContext(NotesContext);
 
     const notesContainer = css`
-        max-width: 100vw;
+        width: 100%;
+        max-width: 81.5vw;
         display: grid;
         gap: 20px;
         grid-template-columns: repeat(auto-fill, minmax(175px, 250px));
         grid-template-rows: masonry;
 
-        @media only screen and (max-width: 615px) {
+        @media only screen and (max-width: 625px) {
             gap: 10px 20px;
             grid-template-columns: repeat(auto-fill, minmax(175px, 95vw));
         }
@@ -32,8 +33,11 @@ const Notes = () => {
     return (
         <div
             css={css`
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 max-width: 85vw;
-                @media only screen and (max-width: 615px) {
+                @media only screen and (max-width: 625px) {
                     max-width: 91.5vw;
                 }
             `}
@@ -43,16 +47,22 @@ const Notes = () => {
                 className="pinned"
                 draggedItemClassName="pinned"
             >
-                <Spacer y={0.5} />
-                {pinned.length > 0 && (
-                    <div>
-                        <Text size={16}>Pinned</Text>
-                        <div css={notesContainer}>
-                            {pinned.map((element, idx) => {
-                                return <Note key={element.id} item={element} />;
-                            })}
+                {pinned.length > 0 ? (
+                    <>
+                        <Spacer y={0.5} />
+                        <div>
+                            <Text size={16}>Pinned</Text>
+                            <div css={notesContainer}>
+                                {pinned.map((element, idx) => {
+                                    return (
+                                        <Note key={element.id} item={element} />
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
+                    </>
+                ) : (
+                    <Spacer y={1} />
                 )}
             </SortableList>
             <SortableList
