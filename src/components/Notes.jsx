@@ -8,7 +8,8 @@ import SortableList from "react-easy-sort";
 import Note from "./Note";
 
 const Notes = () => {
-    const { pinned, other, reorderNotes } = useContext(NotesContext);
+    const { pinned, other, reorderNotes, isModalOpen } =
+        useContext(NotesContext);
 
     const notesContainer = css`
         width: 100%;
@@ -47,6 +48,7 @@ const Notes = () => {
                 onSortEnd={handlePinned}
                 className="pinned"
                 draggedItemClassName="pinned"
+                allowDrag={!isModalOpen}
             >
                 {pinned.length > 0 ? (
                     <div>
@@ -70,6 +72,7 @@ const Notes = () => {
                 onSortEnd={handleOther}
                 className="other"
                 draggedItemClassName="other"
+                allowDrag={!isModalOpen}
             >
                 <Spacer y={0.5} />
                 {other.length > 0 && (

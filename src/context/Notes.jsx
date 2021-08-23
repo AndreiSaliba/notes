@@ -7,6 +7,7 @@ export const NotesProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
     const [other, setOther] = useState([]);
     const [pinned, setPinned] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState();
 
     const getNotes = (user) => {
         if (user.uid) {
@@ -127,6 +128,8 @@ export const NotesProvider = ({ children }) => {
                 pinNote,
                 changeColor,
                 reorderNotes,
+                isModalOpen,
+                setIsModalOpen,
             }}
         >
             {children}

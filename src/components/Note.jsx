@@ -13,7 +13,7 @@ import ColorPicker from "./ColorPicker";
 
 const Note = ({ item }) => {
     const { getTheme } = useContext(ThemeContext);
-    const { updateNote, pinNote, deleteNote } =
+    const { updateNote, pinNote, deleteNote, setIsModalOpen } =
         useContext(NotesContext);
     const { id, title, note, pinned, color } = item;
 
@@ -27,9 +27,12 @@ const Note = ({ item }) => {
         setOpen(true);
         setModalTitle(title);
         setModalNote(note);
+        setIsModalOpen(true);
     };
+
     const closeHandler = () => {
         setOpen(false);
+        setIsModalOpen(false);
         if (modalTitle !== title || modalNote !== note) {
             updateNote(id, modalTitle, modalNote, pinned);
         }
