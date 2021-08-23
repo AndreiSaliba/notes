@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { NotesContext } from "../context/Notes";
 import { Text, Spacer } from "@geist-ui/react";
 import SortableList from "react-easy-sort";
@@ -18,7 +18,8 @@ const Notes = () => {
         grid-template-columns: repeat(auto-fill, minmax(175px, 250px));
         grid-template-rows: masonry;
 
-        @media only screen and (max-width: 625px) {
+        @media only screen and (max-width: 650px) {
+            max-width: 91.5vw;
             gap: 10px 20px;
             grid-template-columns: repeat(auto-fill, minmax(175px, 95vw));
         }
@@ -37,7 +38,7 @@ const Notes = () => {
                 flex-direction: column;
                 align-items: center;
                 max-width: 85vw;
-                @media only screen and (max-width: 625px) {
+                @media only screen and (max-width: 650px) {
                     max-width: 91.5vw;
                 }
             `}
@@ -48,7 +49,7 @@ const Notes = () => {
                 draggedItemClassName="pinned"
             >
                 {pinned.length > 0 ? (
-                    <>
+                    <div>
                         <Spacer y={0.5} />
                         <div>
                             <Text size={16}>Pinned</Text>
@@ -60,7 +61,7 @@ const Notes = () => {
                                 })}
                             </div>
                         </div>
-                    </>
+                    </div>
                 ) : (
                     <Spacer y={1} />
                 )}

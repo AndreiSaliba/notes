@@ -63,7 +63,7 @@ const Header = () => {
                     align-items: center;
                     justify-content: space-between;
                     width: 85vw;
-                    @media only screen and (max-width: 615px) {
+                    @media only screen and (max-width: 650px) {
                         width: 91.5vw;
                     }
                 `}
