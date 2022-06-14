@@ -42,7 +42,7 @@ const Header = () => {
                 </Select>
             </Popover.Item>
             <Popover.Item onClick={() => firebase.auth().signOut()}>
-                <Text>Sign Out</Text>
+                <Text style={{ margin: "0px", marginLeft: "5px" }} >Sign Out</Text>
             </Popover.Item>
         </div>
     );
