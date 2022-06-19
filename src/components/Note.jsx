@@ -53,7 +53,6 @@ const Note = ({ item }) => {
 
     const cardText = css`
         width: 100%;
-        margin-bottom: 10px;
         overflow-wrap: break-word;
         white-space: pre-wrap;
         outline: none;
@@ -63,8 +62,16 @@ const Note = ({ item }) => {
         <SortableItem key={id}>
             <div>
                 <Card
-                    style={{ backgroundColor: color }}
+                    style={{
+                        backgroundColor:
+                            color === ""
+                                ? getTheme() === "dark"
+                                    ? "#00000085"
+                                    : "#ffffff85"
+                                : color,
+                    }}
                     css={css`
+                        backdrop-filter: blur(5px) saturate(100%);
                         alignself: "flex-start";
                         user-select: none;
 

@@ -51,30 +51,30 @@ const ColorPicker = ({ id, isPinned }) => {
                     css={[
                         colorButton,
                         css`
-                            background-color: #0070f390;
+                            background-color: #0070f385;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#0070f390", isPinned)}
+                    onClick={() => changeColor(id, "#0070f385", isPinned)}
                 ></div>
                 <div
                     // Red
                     css={[
                         colorButton,
                         css`
-                            background-color: #ee000090;
+                            background-color: #ee000085;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#ee000090", isPinned)}
+                    onClick={() => changeColor(id, "#ee000085", isPinned)}
                 ></div>
                 <div
                     // Yellow
                     css={[
                         colorButton,
                         css`
-                            background-color: #f5a62390;
+                            background-color: #f5a62385;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#f5a62390", isPinned)}
+                    onClick={() => changeColor(id, "#f5a62385", isPinned)}
                 ></div>
             </div>
             <div
@@ -90,40 +90,40 @@ const ColorPicker = ({ id, isPinned }) => {
                     css={[
                         colorButton,
                         css`
-                            background-color: #55555590;
+                            background-color: #55555585;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#55555590", isPinned)}
+                    onClick={() => changeColor(id, "#55555585", isPinned)}
                 ></div>
                 <div
                     // Cyan
                     css={[
                         colorButton,
                         css`
-                            background-color: #50e3c290;
+                            background-color: #50e3c285;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#50e3c290", isPinned)}
+                    onClick={() => changeColor(id, "#50e3c285", isPinned)}
                 ></div>
                 <div
                     // Pink
                     css={[
                         colorButton,
                         css`
-                            background-color: #ff008090;
+                            background-color: #ff008085;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#ff008090", isPinned)}
+                    onClick={() => changeColor(id, "#ff008085", isPinned)}
                 ></div>
                 <div
                     // Purple
                     css={[
                         colorButton,
                         css`
-                            background-color: #7928ca90;
+                            background-color: #7928ca85;
                         `,
                     ]}
-                    onClick={() => changeColor(id, "#7928ca90", isPinned)}
+                    onClick={() => changeColor(id, "#7928ca85", isPinned)}
                 ></div>
             </div>
         </div>
