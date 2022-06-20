@@ -4,7 +4,7 @@ import { jsx, css } from "@emotion/react";
 import { useState, useRef, useContext } from "react";
 import { NotesContext } from "../context/Notes";
 import { ThemeContext } from "../context/Theme";
-import { Card, useClickAway } from "@geist-ui/react";
+import { Card, useClickAway } from "@geist-ui/core";
 
 const AddNote = () => {
     const { addNote } = useContext(NotesContext);

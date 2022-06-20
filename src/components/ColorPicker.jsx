@@ -13,7 +13,7 @@ const ColorPicker = ({ id, isPinned }) => {
         display: flex;
         flex-direction: column;
         margin: 0px 7px;
-        z-index: 50;
+        z-index: 1000;
     `;
 
     const row = css`

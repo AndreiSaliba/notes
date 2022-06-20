@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { GeistProvider, CssBaseline } from "@geist-ui/react";
+import { GeistProvider, CssBaseline } from "@geist-ui/core";
 import { AuthProvider } from "./context/Auth";
 import { NotesProvider } from "./context/Notes";
 import { ThemeContext } from "./context/Theme";

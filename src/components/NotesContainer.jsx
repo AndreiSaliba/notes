@@ -3,7 +3,7 @@
 import { jsx, css } from "@emotion/react";
 import { useContext } from "react";
 import { NotesContext } from "../context/Notes";
-import { Text, Spacer } from "@geist-ui/react";
+import { Text, Spacer } from "@geist-ui/core";
 import SortableList from "react-easy-sort";
 import Note from "./Note";
 

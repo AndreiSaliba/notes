@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "@emotion/react": "^11.4.0",
+        "@geist-ui/core": "^2.3.8",
         "@geist-ui/react": "^2.1.5",
         "@geist-ui/react-icons": "^1.0.1",
         "firebase": "^8.6.5",

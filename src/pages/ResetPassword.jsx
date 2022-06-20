@@ -3,7 +3,7 @@
 import { jsx, css } from "@emotion/react";
 import { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { Card, Input, Button, Spacer, Text } from "@geist-ui/react";
+import { Card, Input, Button, Spacer, Text } from "@geist-ui/core";
 import { useFormik } from "formik";
 import { ThemeContext } from "../context/Theme";
 import { AuthContext } from "../context/Auth";

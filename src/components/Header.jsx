@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { useContext } from "react";
-import { Button, Text, Popover, Select } from "@geist-ui/react";
+import { Button, Text, Popover, Select } from "@geist-ui/core";
 import { BrowserRouter as Link } from "react-router-dom";
 import { Settings, Display, Moon, Sun } from "@geist-ui/react-icons";
 import { ThemeContext } from "../context/Theme";
@@ -42,7 +42,9 @@ const Header = () => {
                 </Select>
             </Popover.Item>
             <Popover.Item onClick={() => firebase.auth().signOut()}>
-                <Text style={{ margin: "0px", marginLeft: "5px" }} >Sign Out</Text>
+                <Text style={{ margin: "0px", marginLeft: "5px" }}>
+                    Sign Out
+                </Text>
             </Popover.Item>
         </div>
     );

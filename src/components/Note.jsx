@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { useContext, useState } from "react";
-import { Card, Popover, Modal } from "@geist-ui/react";
+import { Card, Popover, Modal } from "@geist-ui/core";
 import { AiFillPushpin, AiOutlinePushpin } from "react-icons/ai";
 import { IoTrashOutline } from "react-icons/io5";
 import { RiPaletteLine } from "react-icons/ri";
@@ -165,7 +165,7 @@ const Note = ({ item }) => {
                     </Card.Content>
                 </Card>
 
-                <Modal width="600px" open={open} onClose={closeHandler}>
+                <Modal width="600px" visible={open} onClose={closeHandler}>
                     <Modal.Content
                         css={css`
                             margin: -22px !important;
@@ -229,6 +229,15 @@ const Note = ({ item }) => {
                                     onClick={() => pinNote(id, pinned)}
                                 />
                             )}
+
+                            <Popover
+                                content={() => (
+                                    <ColorPicker id={id} isPinned={pinned} />
+                                )}
+                                trigger="hover"
+                            >
+                                <RiPaletteLine css={hoverButton} />
+                            </Popover>
 
                             <IoTrashOutline
                                 css={hoverButton}
