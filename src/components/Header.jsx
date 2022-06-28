@@ -6,10 +6,11 @@ import { Button, Text, Popover, Select } from "@geist-ui/core";
 import { BrowserRouter as Link } from "react-router-dom";
 import { Settings, Display, Moon, Sun } from "@geist-ui/react-icons";
 import { ThemeContext } from "../context/Theme";
-import firebase from "../firebase";
+import { AuthContext } from "../context/Auth";
 
 const Header = () => {
     const { currentTheme, updateTheme } = useContext(ThemeContext);
+    const { logOut } = useContext(AuthContext);
 
     const content = () => (
         <div style={{}}>
@@ -41,7 +42,7 @@ const Header = () => {
                     </Select.Option>
                 </Select>
             </Popover.Item>
-            <Popover.Item onClick={() => firebase.auth().signOut()}>
+            <Popover.Item onClick={() => logOut()}>
                 <Text style={{ margin: "0px", marginLeft: "5px" }}>
                     Sign Out
                 </Text>
@@ -51,7 +52,6 @@ const Header = () => {
 
     return (
         <div
-            // className="Header-Wrapper"
             css={css`
                 display: flex;
                 align-items: center;
@@ -59,7 +59,6 @@ const Header = () => {
             `}
         >
             <div
-                // className="Header-Container"
                 css={css`
                     display: flex;
                     align-items: center;

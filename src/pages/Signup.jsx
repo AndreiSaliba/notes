@@ -7,11 +7,10 @@ import { Card, Input, Button, Spacer, Text } from "@geist-ui/core";
 import { useFormik } from "formik";
 import { ThemeContext } from "../context/Theme";
 import { AuthContext } from "../context/Auth";
-import firebase from "../firebase";
 
 const Signup = () => {
     const history = useHistory();
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, signUp } = useContext(AuthContext);
     const { getTheme } = useContext(ThemeContext);
     currentUser && history.push("/");
 
@@ -25,61 +24,12 @@ const Signup = () => {
         onSubmit: async (values) => {
             if (values.email && values.password) {
                 if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                    firebase
-                        .auth()
-                        .createUserWithEmailAndPassword(
-                            values.email,
-                            values.password
-                        )
-                        .then((user) => {
-                            firebase
-                                .firestore()
-                                .collection("users")
-                                .doc(user.user.uid)
-                                .set(
-                                    {
-                                        userID: user.user.uid,
-                                        email: user.user.email,
-                                        other: [],
-                                        pinned: [],
-                                    },
-                                    { merge: true }
-                                )
-                                .then(() => {
-                                    console.log("Document written");
-                                })
-                                .catch((error) => {
-                                    console.error(
-                                        "Error adding document: ",
-                                        error
-                                    );
-                                });
-                        })
+                    signUp(values.email, values.password)
                         .then(() => {
                             setError("");
                             history.push("/");
                         })
-                        .catch((error) => {
-                            switch (error.code) {
-                                case "auth/email-already-in-use":
-                                    setError("Email address already in use.");
-                                    break;
-                                case "auth/weak-password":
-                                    setError("Weak password");
-                                    break;
-                                case "auth/invalid-email":
-                                    setError("Invalid email address");
-                                    break;
-                                case "auth/operation-not-allowed":
-                                    setError(
-                                        "Accounts can't be created with email and password."
-                                    );
-                                    break;
-                                default:
-                                    setError("An error has occourred");
-                                    break;
-                            }
-                        });
+                        .catch((error) => setError(error));
                 } else {
                     setError("Invalid email address");
                 }

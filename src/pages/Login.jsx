@@ -7,11 +7,10 @@ import { Card, Input, Button, Spacer, Text } from "@geist-ui/core";
 import { useFormik } from "formik";
 import { ThemeContext } from "../context/Theme";
 import { AuthContext } from "../context/Auth";
-import firebase from "../firebase";
 
 const Login = () => {
     const history = useHistory();
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, login } = useContext(AuthContext);
     const { getTheme } = useContext(ThemeContext);
 
     currentUser && history.push("/");
@@ -26,36 +25,12 @@ const Login = () => {
         onSubmit: async (values) => {
             if (values.email && values.password) {
                 if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                    firebase
-                        .auth()
-                        .signInWithEmailAndPassword(
-                            values.email,
-                            values.password
-                        )
+                    await login(values.email, values.password)
                         .then(() => {
                             setError("");
                             history.push("/");
                         })
-                        .catch((error) => {
-                            switch (error.code) {
-                                case "auth/wrong-password":
-                                    setError("Wrong password");
-                                    break;
-                                case "auth/user-not-found":
-                                    setError("User not found");
-                                    break;
-                                case "auth/invalid-email":
-                                    setError("Invalid email address");
-                                    break;
-                                case "auth/user-disabled":
-                                    setError("Your account has been disabled");
-                                    break;
-                                default:
-                                    setError("An error has occourred");
-                                    console.log(error);
-                                    break;
-                            }
-                        });
+                        .catch((error) => setError(error));
                 } else {
                     setError("Invalid email address");
                 }

@@ -7,12 +7,12 @@ import { Card, Input, Button, Spacer, Text } from "@geist-ui/core";
 import { useFormik } from "formik";
 import { ThemeContext } from "../context/Theme";
 import { AuthContext } from "../context/Auth";
-import firebase from "../firebase";
 
 const ResetPassword = () => {
     const history = useHistory();
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, resetPassword } = useContext(AuthContext);
     const { getTheme } = useContext(ThemeContext);
+
     currentUser && history.push("/");
 
     const [error, setError] = useState("");
@@ -25,9 +25,7 @@ const ResetPassword = () => {
 
         onSubmit: async (values) => {
             if (values.email.match(/^\S+@\S+\.\S+$/)) {
-                firebase
-                    .auth()
-                    .sendPasswordResetEmail(values.email)
+                resetPassword(values.email)
                     .then(() => {
                         setError("");
                         setSuccess("Reset password email sent");

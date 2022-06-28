@@ -10,11 +10,11 @@ import Notes from "../components/NotesContainer";
 
 const Home = () => {
     const { currentUser } = useContext(AuthContext);
-    const { getNotes } = useContext(NotesContext);
+    //const { getNotes } = useContext(NotesContext);
 
-    useEffect(() => {
-        getNotes(currentUser);
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // useEffect(() => {
+    //     getNotes(currentUser);
+    // }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div
@@ -27,8 +27,8 @@ const Home = () => {
             `}
         >
             <Header />
-            <AddNote />
-            <Notes />
+            {/* <AddNote /> */}
+            {/* <Notes /> */}
         </div>
     );
 };
