@@ -18,7 +18,7 @@ const AddNote = () => {
         setOpened(false);
         (title !== "" || note !== "") &&
             addNote({
-                id: new Date().getTime().toString(36),
+                id: window.crypto.randomUUID(),
                 title,
                 note,
                 color: "",

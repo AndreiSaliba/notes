@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
-import { firebase } from "../firebase";
+import { db } from "../firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export const NotesContext = createContext();
 
@@ -9,21 +10,15 @@ export const NotesProvider = ({ children }) => {
     const [pinned, setPinned] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState();
 
-    const getNotes = (user) => {
+    const getNotes = async (user) => {
         if (user.uid) {
-            firebase
-                .firestore()
-                .collection("users")
-                .doc(user.uid)
-                .get()
-                .then((doc) => {
-                    setCurrentUser(user);
-                    setOther(doc.data().other ?? []);
-                    setPinned(doc.data().pinned ?? []);
-                })
-                .catch((error) => {
-                    console.log("Error getting document:", error);
-                });
+            const docSnap = await getDoc(doc(db, "users", user.uid));
+
+            if (docSnap.exists()) {
+                setCurrentUser(user);
+                setOther(docSnap.data().other ?? []);
+                setPinned(docSnap.data().pinned ?? []);
+            }
         }
     };
 
@@ -96,23 +91,24 @@ export const NotesProvider = ({ children }) => {
         const movedItem = array.splice(source, 1)[0];
         array.splice(destination, 0, movedItem);
         type === "other" ? setOther([...array]) : setPinned([...array]);
-        firebase
-            .firestore()
-            .collection("users")
-            .doc(currentUser.uid)
-            .set({ other, pinned }, { merge: true });
+        setDoc(
+            doc(db, "users", currentUser.uid),
+            { other, pinned },
+            { merge: true }
+        ).catch((error) => {
+            console.error("Error updating document: ", error);
+        });
     };
 
     useEffect(() => {
         if (currentUser) {
-            firebase
-                .firestore()
-                .collection("users")
-                .doc(currentUser.uid)
-                .set({ other, pinned }, { merge: true })
-                .catch((error) => {
-                    console.error("Error updating document: ", error);
-                });
+            setDoc(
+                doc(db, "users", currentUser.uid),
+                { other, pinned },
+                { merge: true }
+            ).catch((error) => {
+                console.error("Error updating document: ", error);
+            });
         }
     }, [currentUser, other, pinned]);
 

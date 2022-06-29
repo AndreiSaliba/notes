@@ -15,7 +15,7 @@ function App() {
 
     return (
         <AuthProvider>
-            {/* <NotesProvider> */}
+            <NotesProvider>
                 <GeistProvider themeType={getTheme()}>
                     <CssBaseline />
                     <Router>
@@ -27,7 +27,7 @@ function App() {
                         </Switch>
                     </Router>
                 </GeistProvider>
-            {/* </NotesProvider> */}
+            </NotesProvider>
         </AuthProvider>
     );
 }

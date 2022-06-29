@@ -2,20 +2,19 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { useContext, useEffect } from "react";
-import { NotesContext } from "../context/Notes";
 import { AuthContext } from "../context/Auth";
-import AddNote from "../components/AddNote";
+import { NotesContext } from "../context/Notes";
 import Header from "../components/Header";
-import Notes from "../components/NotesContainer";
+import AddNote from "../components/AddNote";
+import NotesContainer from "../components/NotesContainer";
 
 const Home = () => {
     const { currentUser } = useContext(AuthContext);
-    //const { getNotes } = useContext(NotesContext);
+    const { getNotes } = useContext(NotesContext);
 
-    // useEffect(() => {
-    //     getNotes(currentUser);
-    // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+    useEffect(() => {
+        getNotes(currentUser);
+    }, [currentUser, getNotes]);
     return (
         <div
             css={css`
@@ -27,8 +26,8 @@ const Home = () => {
             `}
         >
             <Header />
-            {/* <AddNote /> */}
-            {/* <Notes /> */}
+            <AddNote />
+            <NotesContainer />
         </div>
     );
 };
