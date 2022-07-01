@@ -14,7 +14,8 @@ const Home = () => {
 
     useEffect(() => {
         getNotes(currentUser);
-    }, [currentUser, getNotes]);
+    }, []); //eslint-disable-line react-hooks/exhaustive-deps
+
     return (
         <div
             css={css`
